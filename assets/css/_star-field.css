@@ -1,0 +1,9 @@
+star-field {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+        hsla(0, 0%, 100%, 0.1),
+        hsla(0, 0%, 100%, 0.01)
+    );
+    background-repeat: repeat-x;
+}

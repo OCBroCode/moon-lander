@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moon Lander!</title>
+<link rel="stylesheet" href="./assets/css/index.css?date=2023-12-15">
+
+<game-controls>
+    <form>
+        <div class="control">
+            <label>Rotation</label><br>
+            <input type="range" min="-100" max="100" id="rotation">
+        </div>
+        <div class="control">
+            <label>Thruster</label><br>
+            <input type="range" min="0" max="100" id="thruster">
+        </div>
+        <div class="control">
+            <label>Speed</label><br>
+            <input type="range" min="0" max="1000" id="speed">
+        </div>
+        <div class="control">
+            <label>Altitude</label><br>
+            <input type="range" min="0" max="100" id="altitude">
+        </div>
+    </form>
+</game-controls>
+
+<game-scene>
+    <!--
+    <incoming-asteroid></incoming-asteroid>
+    -->
+    <lander-vehicle>
+        <!--         
+        <vehicle-thruster direction="port"></vehicle-thruster>
+        <vehicle-thruster direction="starboard"></vehicle-thruster>
+        <vehicle-landing-gear></vehicle-landing-gear>
+        -->
+        <vehicle-booster></vehicle-booster>
+    </lander-vehicle>
+    <lunar-surface>
+        <!--
+        <lunar-crater></lunar-crater>
+        <lunar-boulder></lunar-boulder>
+        <lunar-hill></lunar-hill>
+        -->
+    </lunar-surface>
+    <!-- 
+    <orbiting-planet></orbiting-planet>
+    -->
+    <star-field></star-field>
+</game-scene>
+
+<script type="module" src="./assets/mjs/game-controls.mjs"></script>
+<script type="module" src="./assets/mjs/game-scene.mjs"></script>
+<script type="module" src="./assets/mjs/lander-vehicle.mjs"></script>

@@ -1,0 +1,10 @@
+vehicle-booster {
+    position: absolute;
+    z-index: -1;
+    inset-block-start: 100%;
+    inset-inline-start: 50%;
+    block-size: calc(var(--lander_booster) * var(--unit_root));
+    inline-size: var(--unit_root);
+    transform: translateX(-50%);
+    background-color: red;
+}

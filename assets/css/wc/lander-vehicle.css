@@ -1,8 +1,8 @@
 lander-vehicle {
 	display: block;
 	position: absolute;
-	inset-block-end: calc(var(--lander_position_y) * var(--unit_root));
-	inset-inline-start: calc(var(--lander_position_x) * var(--unit_root));
+	inset-block-start: calc(var(--lander_position_y) * 1%);
+	inset-inline-start: calc(var(--lander_position_x) * 1%);
 	inline-size: calc(5 * var(--unit_root));
 	block-size: calc(5 * var(--unit_root));
 	background-color: gold;

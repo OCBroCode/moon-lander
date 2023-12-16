@@ -5,7 +5,7 @@ game-controls {
 	inset-inline-start: 0;
 	inset-inline-end: 0;
 	z-index: 2;
-	block-size: calc(10 * var(--root_unit));
+	block-size: calc(10 * var(--unit_root));
 	display: flex;
 	flex-direction: row;
 	align-items: center;

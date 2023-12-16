@@ -1,4 +1,5 @@
 star-field {
+    display: block;
     position: absolute;
     inset: 0;
     background-image: linear-gradient(

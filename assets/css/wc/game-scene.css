@@ -6,6 +6,7 @@ game-scene {
     --lander_rotation: 0;
     --lander_booster: 10;
 
+    display: block;
     position: absolute;
     inset: 0;
     z-index: 1;

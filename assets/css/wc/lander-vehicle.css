@@ -1,4 +1,5 @@
 lander-vehicle {
+	display: block;
 	position: absolute;
 	inset-block-end: calc(var(--lander_position_y) * var(--unit_root));
 	inset-inline-start: calc(var(--lander_position_x) * var(--unit_root));

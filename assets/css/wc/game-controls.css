@@ -1,4 +1,5 @@
 game-controls {
+	display: block;
     position: absolute;
 	inset-block-start: 0;
 	inset-inline-start: 0;

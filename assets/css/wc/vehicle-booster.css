@@ -1,4 +1,5 @@
 vehicle-booster {
+    display: block;
     position: absolute;
     z-index: -1;
     inset-block-start: 100%;

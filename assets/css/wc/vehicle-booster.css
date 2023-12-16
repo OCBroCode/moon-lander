@@ -1,11 +1,36 @@
+@keyframes sputter {
+    0% {
+        transform: var(--booster_default_translate) var(--booster_scale_smaller);
+    }
+
+    50% {
+        transform: var(--booster_default_translate) var(--booster_scale_default);
+    }
+
+    100% {
+        transform: var(--booster_default_translate) var(--booster_scale_smaller);
+    }
+}
+
 vehicle-booster {
+    --booster_default_translate: translateX(-50%);
+    --booster_scale_default: scaleY(1);
+    --booster_scale_smaller: scaleY(0.75);
+    --booster_length_multiplier: 5;
+    --booster_length: calc(var(--lander_booster) * var(--booster_length_multiplier) / 100);
+
     display: block;
     position: absolute;
     z-index: -1;
-    inset-block-start: 100%;
+    inset-block-start: 99%;
     inset-inline-start: 50%;
-    block-size: calc(var(--lander_booster) * var(--unit_root));
+    block-size: calc(var(--booster_length) * var(--unit_root));
     inline-size: var(--unit_root);
-    transform: translateX(-50%);
+    transform: var(--booster_default_translate) var(--booster_scale_default);
+    transform-origin: 50% 0%;
     background-color: red;
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+    animation-name: sputter;
+    animation-iteration-count: infinite;
 }

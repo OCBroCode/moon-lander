@@ -1,10 +1,10 @@
 game-scene {
     --unit_root: 20px;
-    --lander_position_x: 50;
-    --lander_position_y: 50;
+    --lander_position_x: 50; /* 0 - 100 (percent) */
+    --lander_position_y: 50; /* 0 - 100 (percent) */
     --lander_speed: 0;
-    --lander_rotation: 0;
-    --lander_booster: 10;
+    --lander_rotation: 0; /* -100 to 100 (degrees) */
+    --lander_booster: 10; /* 0 - 100 (percent) */
 
     display: block;
     position: absolute;
@@ -17,6 +17,7 @@ game-scene {
 /* Set stacking contexts */
 game-scene incoming-asteroid { z-index: 30; }
 game-scene lander-vehicle    { z-index: 20; }
+game-scene game-controls     { z-index: 11; }
 game-scene lunar-surface     { z-index: 10; }
 game-scene oribiting-planet  { z-index: 2; }
 game-scene star-field        { z-index: 1; }

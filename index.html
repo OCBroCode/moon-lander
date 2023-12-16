@@ -13,28 +13,27 @@
 @import url("./assets/css/wc/star-field.css?date=2023-12-15");
 </style>
 
-<game-controls>
-    <form>
-        <div class="control">
-            <label for="">Rotation</label><br>
-            <input type="range" min="-100" max="100" id="rotation">
-        </div>
-        <div class="control">
-            <label for="thruster">Thruster</label><br>
-            <input type="range" min="0" max="100" id="thruster">
-        </div>
-        <div class="control">
-            <label for="speed">Speed</label><br>
-            <input type="range" min="0" max="1000" id="speed">
-        </div>
-        <div class="control">
-            <label for="altitude">Altitude</label><br>
-            <input type="range" min="0" max="100" id="altitude">
-        </div>
-    </form>
-</game-controls>
-
 <game-scene>
+    <game-controls>
+        <form>
+            <div class="control">
+                <label for="">Rotation</label><br>
+                <input type="range" min="-100" max="100" id="rotation">
+            </div>
+            <div class="control">
+                <label for="thruster">Thruster</label><br>
+                <input type="range" min="0" max="100" id="thruster">
+            </div>
+            <div class="control">
+                <label for="speed">Speed</label><br>
+                <input type="range" min="0" max="1000" id="speed">
+            </div>
+            <div class="control">
+                <label for="altitude">Altitude</label><br>
+                <input type="range" min="0" max="100" id="altitude">
+            </div>
+        </form>
+    </game-controls>
     <!--
     <incoming-asteroid></incoming-asteroid>
     -->

@@ -1,8 +1,6 @@
-const dateFingerprint = '2023-12-15';
-
-import GameControls from `./wc/game-controls.mjs?date=${dateFingerprint}`;
-import GameScene from `./wc/game-scene.mjs?date=${dateFingerprint}`;
-import LanderVehicle from `./wc/lander-vehicle.mjs?date=${dateFingerprint}`;
+import GameControls from './wc/game-controls.mjs?date=2023-12-26';
+import GameScene from './wc/game-scene.mjs?date=2023-12-26';
+import LanderVehicle from './wc/lander-vehicle.mjs?date=2023-12-26';
 
 const customElementMappings = {
     'game-controls': GameControls,

@@ -8,6 +8,6 @@ const customElementMappings = {
     'lander-vehicle': LanderVehicle,       
 }
 
-for (let customElementName, customElementClass in customElementMappings) {
+for (const [customElementName, customElementClass] of Object.entries(customElementMappings)) {
     customElements.define(customElementName, customElementClass);
 }

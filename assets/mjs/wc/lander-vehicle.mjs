@@ -1,7 +1,6 @@
-class LanderVehicle extends HTMLElement {
-    constructor() {
-        super();
-    }
+import GameElement from './game-element.mjs';
+
+class LanderVehicle extends GameElement {
+
 }
 
-customElements.define('lander-vehicle', LanderVehicle);

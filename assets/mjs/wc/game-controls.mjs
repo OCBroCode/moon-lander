@@ -1,7 +1,6 @@
-class GameControls extends HTMLElement {
-    constructor() {
-        super();
-    }
+import GameElement from './game-element.mjs';
+
+class GameControls extends GameElement {
+
 }
 
-customElements.define('game-controls', GameControls);

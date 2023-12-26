@@ -1,7 +1,6 @@
-class GameScene extends HTMLElement {
-    constructor() {
-        super();
-    }
+import GameElement from './game-element.mjs';
+
+class GameScene extends GameElement {
+
 }
 
-customElements.define('game-scene', GameScene);

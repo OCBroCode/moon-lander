@@ -1,6 +1,6 @@
 import GameElement from './game-element.mjs';
 
-class LanderVehicle extends GameElement {
+export default class LanderVehicle extends GameElement {
 
 }
 

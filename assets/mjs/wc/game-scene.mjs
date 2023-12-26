@@ -1,6 +1,6 @@
 import GameElement from './game-element.mjs';
 
-class GameScene extends GameElement {
+export default class GameScene extends GameElement {
 
 }
 

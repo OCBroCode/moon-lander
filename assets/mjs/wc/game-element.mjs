@@ -1,4 +1,4 @@
-class GameElement extends HTMLElement {
+export default class GameElement extends HTMLElement {
     constructor() {
         super();
     }

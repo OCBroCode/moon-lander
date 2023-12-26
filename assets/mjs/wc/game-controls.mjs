@@ -1,6 +1,6 @@
 import GameElement from './game-element.mjs';
 
-class GameControls extends GameElement {
+export default class GameControls extends GameElement {
 
 }
 

@@ -22,6 +22,7 @@ export default class GameScene extends GameElement {
 
     connectedCallback() {
         this.startGame();
+        window.setTimeout(this.#stopGame, 1_000);
     }
   
 

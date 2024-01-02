@@ -17,20 +17,33 @@
     <game-controls>
         <form>
             <div class="control">
-                <label for="rotation">Rotation</label><br>
-                <input type="range" min="-100" max="100" id="rotation">
+                <label for="rng_rotation">Rotation</label><br>
+                <input type="range" min="-100" max="100" id="rng_rotation" name="rotation">
+                <output for="rotation" name="result_rotation"></output>
             </div>
             <div class="control">
-                <label for="thruster">Thruster</label><br>
-                <input type="range" min="0" max="100" id="thruster">
+                <label for="rng_thruster">Thruster</label><br>
+                <input type="range" min="0" max="100" id="rng_thruster" name="thruster">
+                <output for="thruster" name="result_thruster"></output>
             </div>
             <div class="control">
-                <label for="speed">Speed</label><br>
-                <input type="range" min="0" max="1000" id="speed">
+                <label for="rng_speed">Speed</label><br>
+                <input type="range" min="0" max="100" id="rng_speed" name="speed">
+                <output for="speed" name="result_speed"></output>
             </div>
             <div class="control">
-                <label for="altitude">Altitude</label><br>
-                <input type="range" min="0" max="100" id="altitude">
+                <label for="rng_altitude">Altitude</label><br>
+                <input type="range" min="0" max="120" id="rng_altitude" name="altitude">
+                <output for="altitude" name="result_altitude"></output>
+            </div>
+            <div class="control">
+                <label for="rdo_running_start">
+                    <input type="radio" name="running" id="rdo_running_start" value="start">&nbsp;Start
+                </label>
+                <label for="rdo_running_stop">
+                    <input type="radio" name="running" id="rdo_running_stop" value="stop">&nbsp;Stop
+                </label>
+                <output for="running" name="result_running"></output>
             </div>
         </form>
     </game-controls>

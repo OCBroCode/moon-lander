@@ -5,7 +5,7 @@ export default class GameScene extends GameElement {
     #gameRunning = false;
     #gameEventFrequency = 10; // Milliseconds
     #gameDuration = 0; // Counts the time elapsed based on multiples of `this.#gameEventFrequency`
-    #gameInterval;
+    #gameInterval; // Placeholder for window.setInterval so that it can be cleared later.
 
     #gameLoop = function() {
         this.#gameDuration++;
@@ -29,6 +29,7 @@ export default class GameScene extends GameElement {
     }
 
     connectedCallback() {
+        super.connectedCallback();
         this.startGame();
     }
   

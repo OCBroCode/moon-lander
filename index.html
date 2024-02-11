@@ -15,7 +15,23 @@
 
 <game-scene>
     <game-controls>
-				<!-- 
+			<template id="tmpl_control_range">
+				<div class="control">
+					<label for="">[LABEL]</label><br>
+					<input type="range" min="" max="" id="" name="">
+					<output for="" name="result_"></output>
+				</div>
+			</template>
+			<template id="tmpl_control_radio">
+				<label>
+					<input type="radio" name="" id="" value="">&nbsp;
+				</label>
+			</template>
+			<template id="tmpl_control_boolean">
+				<div class="control">
+				</div>
+			</template>
+			<!-- 
         <form>
             <div class="control">
                 <label for="rng_rotation">Rotation</label><br>
@@ -47,7 +63,7 @@
                 <output for="running" name="result_running"></output>
             </div>
         </form>
-				-->
+			-->
     </game-controls>
     <!--
     <incoming-asteroid></incoming-asteroid>

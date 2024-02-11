@@ -4,24 +4,28 @@ import { MODEL } from './../model.mjs';
 export default class GameControls extends GameElement {
 	#formElements = MODEL;
 
-	createRangeControl(keyName, modelValue) {
-		let controlId = `rng_${keyName}`;
-		let wrapper = this.querySelector('#tmpl_control_range').content.cloneNode(true);
 
-		let label = wrapper.querySelector('label');
+	createRangeControl(keyName, modelValue) {
+		let wrapper = this.querySelector('#tmpl_control_group_wrapper').content.children[0].cloneNode(true);
+		let rangeFragement = this.querySelector('#tmpl_control_range').content.cloneNode(true);
+		let controlId = `rng_${keyName}`;
+
+		let label = rangeFragement.querySelector('label');
 		label.textContent = modelValue.name;
 		label.setAttribute('for', controlId);
 
-		let input = wrapper.querySelector('input');
+		let input = rangeFragement.querySelector('input');
 		input.min = modelValue.min;
 		input.max = modelValue.max;
 		input.name = keyName;
 		input.id = controlId;
 		input.value = modelValue.initial;
 
-		let output = wrapper.querySelector('output');
+		let output = rangeFragement.querySelector('output');
 		output.setAttribute('for', keyName);
 		output.name = `result_${keyName}`;
+
+		wrapper.append(rangeFragement);
 
 		return wrapper;
 	}
@@ -46,7 +50,7 @@ export default class GameControls extends GameElement {
 
 	createRadioControlGroup(keyName, modelValue) {
 		if (modelValue.type === 'boolean') {
-			let wrapper = this.querySelector('#tmpl_control_boolean').content.children[0].cloneNode(true);
+			let wrapper = this.querySelector('#tmpl_control_group_wrapper').content.children[0].cloneNode(true);
 
 			['true', 'false'].forEach((state) => {
 				wrapper.appendChild(this.createRadioControl(keyName, modelValue, state));

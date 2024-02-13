@@ -14,7 +14,7 @@ export default class GameControls extends GameElement {
 
 		return `<div class="control">
 			<label for="${ controlId }">${ modelValue.name }</label><br>
-			<input type="range" min="${ modelValue.min }" max="${ modelValue.max }" id="${ controlId }" name="${ keyName }" value="${ modelValue.initial }">
+			<input type="range" min="${ modelValue.min }" max="${ modelValue.max }" id="${ controlId }" name="${ keyName }">
 			<output for="${ keyName }" name="result_${ keyName }"></output>
 		</div>`;
 	}
@@ -68,8 +68,34 @@ export default class GameControls extends GameElement {
 		}
 	}
 
+	landerStateChangedEventHandler(event) {
+		if (event.detail) {
+			Object.keys(event.detail).forEach((keyName) => {
+				this.querySelector(`[name="${ keyName }"]`).value = event.detail[keyName];
+			});
+		}
+	}
+
+	keyboardHandler(event) {
+		console.log(event.key);
+
+		let change = {};
+		switch (event.key) {
+			case 'ArrowUp':
+				change.thruster = '10';
+				break;
+			case 'ArrowDown':
+				change.thruster = '-10';
+				break;
+		}
+
+		console.log('change', change);
+	}
+
 	registerHandlers() {
 		document.addEventListener('GameStateChanged', this.gameStateChangedEventHandler);
+		document.addEventListener('LanderStateChanged', this.landerStateChangedEventHandler);
+		document.addEventListener('keyup', this.keyboardHandler);
 	}
 
 	connectedCallback() {

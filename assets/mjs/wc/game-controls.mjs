@@ -4,60 +4,42 @@ import { MODEL } from './../model.mjs';
 export default class GameControls extends GameElement {
 	#formElements = MODEL;
 
-
 	createRangeControl(keyName, modelValue) {
-		let wrapper = this.querySelector('#tmpl_control_group_wrapper').content.children[0].cloneNode(true);
-		let rangeFragement = this.querySelector('#tmpl_control_range').content.cloneNode(true);
 		let controlId = `rng_${keyName}`;
 
-		let label = rangeFragement.querySelector('label');
-		label.textContent = modelValue.name;
-		label.setAttribute('for', controlId);
-
-		let input = rangeFragement.querySelector('input');
-		input.min = modelValue.min;
-		input.max = modelValue.max;
-		input.name = keyName;
-		input.id = controlId;
-		input.value = modelValue.initial;
-
-		let output = rangeFragement.querySelector('output');
-		output.setAttribute('for', keyName);
-		output.name = `result_${keyName}`;
-
-		wrapper.append(rangeFragement);
-
-		return wrapper;
+		return `<div class="control">
+			<label for="${ controlId }">${ modelValue.name }</label><br>
+			<input type="range" min="${ modelValue.min }" max="${ modelValue.max }" id="${ controlId }" name="${ keyName }" value="${ modelValue.initial }">
+			<output for="${ keyName }" name="result_${ keyName }"></output>
+		</div>`;
 	}
 
 	createRadioControl(keyName, modelValue, state) {
 		let controlId = `rdo_${keyName}_${state}`;
 		let labelValue = state === 'true' ? modelValue.labelTrue : modelValue.labelFalse;
-		let label = this.querySelector('#tmpl_control_radio').content.children[0].cloneNode(true);
-		label.setAttribute('for', controlId);
-		label.append(labelValue);
+		let isChecked = null;
 
-		let input = label.querySelector('input');
-		input.name = keyName;
-		input.id = controlId;
-		input.value = state;
 		if (modelValue.initial === state) {
-			input.setAttribute('checked', 'checked');
+			isChecked = 'checked';
 		}
 
-		return label;
+		return `<label for="${ controlId }">
+			<input type="radio" name="${ keyName }" id="${ controlId }" value="${ state }" ${ isChecked }>&nbsp;${ labelValue }
+		</label>`;
 	}
 
 	createRadioControlGroup(keyName, modelValue) {
+		let htmlString = '';
+		
 		if (modelValue.type === 'boolean') {
-			let wrapper = this.querySelector('#tmpl_control_group_wrapper').content.children[0].cloneNode(true);
-
-			['true', 'false'].forEach((state) => {
-				wrapper.appendChild(this.createRadioControl(keyName, modelValue, state));
-			});
-
-			return wrapper;
+			htmlString = `<div class="control">
+				${ this.createRadioControl(keyName, modelValue, 'true') }
+				${ this.createRadioControl(keyName, modelValue, 'false') }
+				<output for="${ keyName }" name="result_${ keyName }"></output>
+			</div>`;
 		}
+
+		return htmlString;
 	}
 
 	associateWithFormControls() {
@@ -65,21 +47,16 @@ export default class GameControls extends GameElement {
 
 		Object.keys(this.#formElements).forEach((key) => {
 			let value = this.#formElements[key];
-			let control = null;
 
 			switch (value.formElement) {
 				case 'range':
 					// this.createRangeControl(key, value);
-					control = this.createRangeControl(key, value);
+					form.innerHTML += this.createRangeControl(key, value);
 					break;
 				case 'radio':
 					// this.createRadioControlGroup(key, value);
-					control = this.createRadioControlGroup(key, value);
+					form.innerHTML += this.createRadioControlGroup(key, value);
 					break;
-			}
-
-			if (control) {
-				form.appendChild(control);
 			}
 		});
 

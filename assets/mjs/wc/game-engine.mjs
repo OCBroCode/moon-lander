@@ -1,11 +1,22 @@
 import GameElement from './game-element.mjs';
+import { MODEL } from './../model.mjs';
 
-export default class GameScene extends GameElement {
+export default class GameEngine extends GameElement {
 
-    #gameRunning = false;
+    modelLander = {};
+		#gameRunning;
     #gameEventFrequency = 10; // Milliseconds
     #gameDuration = 0; // Counts the time elapsed based on multiples of `this.#gameEventFrequency`
     #gameInterval; // Placeholder for window.setInterval so that it can be cleared later.
+
+		constructor() {
+			super();
+
+			Object.keys(MODEL).forEach((keyName) => {
+				let currentItem = MODEL[keyName];
+				if (currentItem.affects === 'lander') this.modelLander[keyName] = currentItem.initial;
+			});
+		}
 
     #gameLoop = function() {
         this.#gameDuration++;
@@ -28,8 +39,13 @@ export default class GameScene extends GameElement {
         window.clearInterval(this.#gameInterval);
     }
 
+		associateFormControls() {
+			console.log(this.modelLander);
+		}
+
     connectedCallback() {
         super.connectedCallback();
+				this.addEventListener('FormElementsAdded', this.associateFormControls.bind(this));
         this.startGame();
     }
   

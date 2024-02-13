@@ -6,6 +6,7 @@ export const MODEL = {
         initial: 100,
         min: 0,
         max: 120,
+				affects: 'lander',
     },
     rotation: {
         name: 'Rotation',
@@ -14,6 +15,7 @@ export const MODEL = {
         initial: 0,
         min: -100,
         max: 100,
+				affects: 'lander',
     },
     running: {
         name: 'Running',
@@ -21,7 +23,8 @@ export const MODEL = {
         formElement: 'radio',
         initial: 'true',
 				labelTrue: 'Running',
-				labelFalse: 'Stopped'
+				labelFalse: 'Stopped',
+				affects: 'game',
     },
     speed: {
         name: 'Speed',
@@ -30,6 +33,7 @@ export const MODEL = {
         initial: 50,
         min: 0,
         max: 100,
+				affects: 'lander',
     },
     thruster: {
         name: 'Thruster',
@@ -38,5 +42,6 @@ export const MODEL = {
         initial: 0,
         min: 0,
         max: 100,
+				affects: 'lander',
     },
 };

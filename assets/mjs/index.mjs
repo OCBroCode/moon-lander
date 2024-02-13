@@ -1,9 +1,9 @@
-import GameScene from './wc/game-scene.mjs?date=2023-12-26';
+import GameEngine from './wc/game-engine.mjs?date=2023-12-26';
 import GameControls from './wc/game-controls.mjs?date=2023-12-26';
 import LanderVehicle from './wc/lander-vehicle.mjs?date=2023-12-26';
 
 const customElementMappings = {
-    'game-scene': GameScene,
+    'game-engine': GameEngine,
     'game-controls': GameControls,
     'lander-vehicle': LanderVehicle,       
 }

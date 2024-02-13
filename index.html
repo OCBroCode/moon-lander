@@ -5,7 +5,7 @@
 <title>Moon Lander!</title>
 <style>
 @import url("./assets/css/setup.css?date=2023-12-15");
-@import url("./assets/css/wc/game-scene.css?date=2023-12-15");
+@import url("./assets/css/wc/game-engine.css?date=2023-12-15");
 @import url("./assets/css/wc/game-controls.css?date=2023-12-15");
 @import url("./assets/css/wc/lander-vehicle.css?date=2023-12-15");
 @import url("./assets/css/wc/vehicle-booster.css?date=2023-12-15");
@@ -13,42 +13,7 @@
 @import url("./assets/css/wc/star-field.css?date=2023-12-15");
 </style>
 
-<game-scene>
-    <game-controls>
-				<!-- 
-        <form>
-            <div class="control">
-                <label for="rng_rotation">Rotation</label><br>
-                <input type="range" min="-100" max="100" id="rng_rotation" name="rotation">
-                <output for="rotation" name="result_rotation"></output>
-            </div>
-            <div class="control">
-                <label for="rng_thruster">Thruster</label><br>
-                <input type="range" min="0" max="100" id="rng_thruster" name="thruster">
-                <output for="thruster" name="result_thruster"></output>
-            </div>
-            <div class="control">
-                <label for="rng_speed">Speed</label><br>
-                <input type="range" min="0" max="100" id="rng_speed" name="speed">
-                <output for="speed" name="result_speed"></output>
-            </div>
-            <div class="control">
-                <label for="rng_altitude">Altitude</label><br>
-                <input type="range" min="0" max="120" id="rng_altitude" name="altitude">
-                <output for="altitude" name="result_altitude"></output>
-            </div>
-            <div class="control">
-                <label for="rdo_running_start">
-                    <input type="radio" name="running" id="rdo_running_start" value="true">&nbsp;Start
-                </label>
-                <label for="rdo_running_stop">
-                    <input type="radio" name="running" id="rdo_running_stop" value="false">&nbsp;Stop
-                </label>
-                <output for="running" name="result_running"></output>
-            </div>
-        </form>
-				-->
-    </game-controls>
+<game-engine>
     <!--
     <incoming-asteroid></incoming-asteroid>
     -->
@@ -71,6 +36,41 @@
     <orbiting-planet></orbiting-planet>
     -->
     <star-field></star-field>
-</game-scene>
+		<game-controls>
+			<!-- 
+			<form>
+					<div class="control">
+							<label for="rng_rotation">Rotation</label><br>
+							<input type="range" min="-100" max="100" id="rng_rotation" name="rotation">
+							<output for="rotation" name="result_rotation"></output>
+					</div>
+					<div class="control">
+							<label for="rng_thruster">Thruster</label><br>
+							<input type="range" min="0" max="100" id="rng_thruster" name="thruster">
+							<output for="thruster" name="result_thruster"></output>
+					</div>
+					<div class="control">
+							<label for="rng_speed">Speed</label><br>
+							<input type="range" min="0" max="100" id="rng_speed" name="speed">
+							<output for="speed" name="result_speed"></output>
+					</div>
+					<div class="control">
+							<label for="rng_altitude">Altitude</label><br>
+							<input type="range" min="0" max="120" id="rng_altitude" name="altitude">
+							<output for="altitude" name="result_altitude"></output>
+					</div>
+					<div class="control">
+							<label for="rdo_running_start">
+									<input type="radio" name="running" id="rdo_running_start" value="true">&nbsp;Start
+							</label>
+							<label for="rdo_running_stop">
+									<input type="radio" name="running" id="rdo_running_stop" value="false">&nbsp;Stop
+							</label>
+							<output for="running" name="result_running"></output>
+					</div>
+			</form>
+			-->
+	</game-controls>
+</game-engine>
 
 <script type="module" src="./assets/mjs/index.mjs?date=2023-12-26"></script>

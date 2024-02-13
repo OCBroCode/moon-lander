@@ -46,7 +46,8 @@ export default class GameControls extends GameElement {
 		let input = document.createElement('input');
 
 		input.setAttribute('type', 'radio');
-		input.setAttribute('name', controlId);
+		input.setAttribute('name', keyName);
+		input.setAttribute('id', controlId);
 		input.setAttribute('value', state);
 
 		if (modelValue.initial === state) {
@@ -70,7 +71,7 @@ export default class GameControls extends GameElement {
 		}
 	}
 
-	associateWithFormControls() {
+	createFormControls() {
 		let form = document.createElement('form');
 
 		Object.keys(this.#formElements).forEach((key) => {
@@ -94,11 +95,12 @@ export default class GameControls extends GameElement {
 		});
 
 		this.appendChild(form);
+		this.dispatchEvent(new Event('FormElementsAdded', {bubbles: true}));
 	}
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.associateWithFormControls();
+		this.createFormControls();
 	}
 }
 

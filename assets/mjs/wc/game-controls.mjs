@@ -17,14 +17,9 @@ export default class GameControls extends GameElement {
 	createRadioControl(keyName, modelValue, state) {
 		let controlId = `rdo_${keyName}_${state}`;
 		let labelValue = state === 'true' ? modelValue.labelTrue : modelValue.labelFalse;
-		let isChecked = null;
-
-		if (modelValue.initial === state) {
-			isChecked = 'checked';
-		}
 
 		return `<label for="${ controlId }">
-			<input type="radio" name="${ keyName }" id="${ controlId }" value="${ state }" ${ isChecked }>&nbsp;${ labelValue }
+			<input type="radio" name="${ keyName }" id="${ controlId }" value="${ state }" ${ (modelValue.initial === state) ? 'checked' : '' }>&nbsp;${ labelValue }
 		</label>`;
 	}
 
@@ -50,11 +45,9 @@ export default class GameControls extends GameElement {
 
 			switch (value.formElement) {
 				case 'range':
-					// this.createRangeControl(key, value);
 					form.innerHTML += this.createRangeControl(key, value);
 					break;
 				case 'radio':
-					// this.createRadioControlGroup(key, value);
 					form.innerHTML += this.createRadioControlGroup(key, value);
 					break;
 			}

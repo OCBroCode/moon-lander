@@ -7,6 +7,7 @@ export const MODEL = {
         min: 0,
         max: 120,
 				affects: 'lander',
+				eventName: 'LanderStateChanged',
     },
     rotation: {
         name: 'Rotation',
@@ -16,6 +17,7 @@ export const MODEL = {
         min: -100,
         max: 100,
 				affects: 'lander',
+				eventName: 'LanderStateChanged',
     },
     running: {
         name: 'Running',
@@ -25,6 +27,7 @@ export const MODEL = {
 				labelTrue: 'Running',
 				labelFalse: 'Stopped',
 				affects: 'game',
+				eventName: 'GameStateChanged',
     },
     speed: {
         name: 'Speed',
@@ -34,6 +37,7 @@ export const MODEL = {
         min: 0,
         max: 100,
 				affects: 'lander',
+				eventName: 'LanderStateChanged',
     },
     thruster: {
         name: 'Thruster',
@@ -43,5 +47,6 @@ export const MODEL = {
         min: 0,
         max: 100,
 				affects: 'lander',
+				eventName: 'LanderStateChanged',
     },
 };

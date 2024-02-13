@@ -9,6 +9,19 @@ export default class GameEngine extends GameElement {
     #gameDuration = 0; // Counts the time elapsed based on multiples of `this.#gameEventFrequency`
     #gameInterval; // Placeholder for window.setInterval so that it can be cleared later.
 
+		#gameRunningStateChanged = (runningState) => {
+			console.log('running', runningState);
+			this.#gameRunning = runningState;
+			this.dispatchEvent(
+				new CustomEvent('GameStateChanged', {
+					bubbles: true,
+					detail: {
+						running: runningState
+					}
+				})
+			);
+		}
+
 		constructor() {
 			super();
 
@@ -27,26 +40,24 @@ export default class GameEngine extends GameElement {
     }
 
     startGame() {
-        console.log('Starting');
-        this.#gameRunning = true;
+				this.#gameRunningStateChanged(true);
         this.#gameDuration = 0;
         this.#gameInterval = window.setInterval(this.#gameLoop.bind(this), this.#gameEventFrequency);
     }
 
     stopGame() {
-        console.log('Stopping');
-        this.#gameRunning = false;
+				this.#gameRunningStateChanged(false);
         window.clearInterval(this.#gameInterval);
     }
 
 		associateFormControls() {
 			console.log(this.modelLander);
+			this.startGame();
 		}
 
     connectedCallback() {
         super.connectedCallback();
 				this.addEventListener('FormElementsAdded', this.associateFormControls.bind(this));
-        this.startGame();
     }
   
 

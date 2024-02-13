@@ -4,6 +4,11 @@ import { MODEL } from './../model.mjs';
 export default class GameControls extends GameElement {
 	#formElements = MODEL;
 
+	constructor() {
+		super();
+		this.registerHandlers();
+	}
+
 	createRangeControl(keyName, modelValue) {
 		let controlId = `rng_${keyName}`;
 
@@ -19,7 +24,7 @@ export default class GameControls extends GameElement {
 		let labelValue = state === 'true' ? modelValue.labelTrue : modelValue.labelFalse;
 
 		return `<label for="${ controlId }">
-			<input type="radio" name="${ keyName }" id="${ controlId }" value="${ state }" ${ (modelValue.initial === state) ? 'checked' : '' }>&nbsp;${ labelValue }
+			<input type="radio" name="${ keyName }" id="${ controlId }" value="${ state }">&nbsp;${ labelValue }
 		</label>`;
 	}
 
@@ -57,9 +62,20 @@ export default class GameControls extends GameElement {
 		this.dispatchEvent(new Event('FormElementsAdded', {bubbles: true}));
 	}
 
+	gameStateChangedEventHandler(event) {
+		if (event.detail) {
+			this.querySelector(`[name="running"][value="${ event.detail.running }"]`).click();
+		}
+	}
+
+	registerHandlers() {
+		document.addEventListener('GameStateChanged', this.gameStateChangedEventHandler);
+	}
+
 	connectedCallback() {
 		super.connectedCallback();
 		this.createFormControls();
+		
 	}
 }
 

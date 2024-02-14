@@ -4,7 +4,7 @@ game-engine {
     --lander_position_y: 50; /* 0 - 100 (percent) */
     --lander_speed: 0;
     --lander_rotation: 0; /* -100 to 100 (degrees) */
-    --lander_booster: 10; /* 0 - 100 (percent) */
+    --lander_thruster: 10; /* 0 - 100 (percent) */
 
     display: block;
     position: absolute;

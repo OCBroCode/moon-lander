@@ -1,5 +1,6 @@
 import GameElement from './game-element.mjs';
 import { MODEL } from './../model.mjs';
+import { dispatchEventWithDetails } from './../events.mjs';
 
 export default class GameEngine extends GameElement {
 
@@ -10,26 +11,14 @@ export default class GameEngine extends GameElement {
 	#gameInterval; // Placeholder for window.setInterval so that it can be cleared later.
 
 	#gameRunningStateChanged = (runningState) => {
-		console.log('running', runningState);
 		this.#gameRunning = runningState;
-		this.dispatchEvent(
-			new CustomEvent('GameStateChanged', {
-				bubbles: true,
-				detail: {
-					running: runningState
-				}
-			})
-		);
+		console.log('running', runningState);
+		dispatchEventWithDetails('GameStateChange', {running: runningState});
 	}
 
 	#landerStateChanged = (values) => {
 		console.log('new lander state', values);
-		this.dispatchEvent(
-			new CustomEvent('LanderStateChanged', {
-				bubbles: true,
-				detail: values
-			})
-		);
+		dispatchEventWithDetails('LanderStateChanged', values);
 	}
 
 	constructor() {

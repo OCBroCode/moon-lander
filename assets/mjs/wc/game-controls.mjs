@@ -1,5 +1,6 @@
 import GameElement from './game-element.mjs';
 import { MODEL } from './../model.mjs';
+import { dispatchEventWithDetails } from './../events.mjs';
 
 export default class GameControls extends GameElement {
 	#formElements = MODEL;
@@ -13,9 +14,9 @@ export default class GameControls extends GameElement {
 		let controlId = `rng_${keyName}`;
 
 		return `<div class="control">
-			<label for="${ controlId }">${ modelValue.name }</label><br>
-			<input type="range" min="${ modelValue.min }" max="${ modelValue.max }" id="${ controlId }" name="${ keyName }">
-			<output for="${ keyName }" name="result_${ keyName }"></output>
+			<label for="${controlId}">${modelValue.name}</label><br>
+			<input type="range" min="${modelValue.min}" max="${modelValue.max}" id="${controlId}" name="${keyName}">
+			<output for="${keyName}" name="result_${keyName}"></output>
 		</div>`;
 	}
 
@@ -23,19 +24,19 @@ export default class GameControls extends GameElement {
 		let controlId = `rdo_${keyName}_${state}`;
 		let labelValue = state === 'true' ? modelValue.labelTrue : modelValue.labelFalse;
 
-		return `<label for="${ controlId }">
-			<input type="radio" name="${ keyName }" id="${ controlId }" value="${ state }">&nbsp;${ labelValue }
+		return `<label for="${controlId}">
+			<input type="radio" name="${keyName}" id="${controlId}" value="${state}">&nbsp;${labelValue}
 		</label>`;
 	}
 
 	createRadioControlGroup(keyName, modelValue) {
 		let htmlString = '';
-		
+
 		if (modelValue.type === 'boolean') {
 			htmlString = `<div class="control">
-				${ this.createRadioControl(keyName, modelValue, 'true') }
-				${ this.createRadioControl(keyName, modelValue, 'false') }
-				<output for="${ keyName }" name="result_${ keyName }"></output>
+				${this.createRadioControl(keyName, modelValue, 'true')}
+				${this.createRadioControl(keyName, modelValue, 'false')}
+				<output for="${keyName}" name="result_${keyName}"></output>
 			</div>`;
 		}
 
@@ -59,19 +60,20 @@ export default class GameControls extends GameElement {
 		});
 
 		this.appendChild(form);
-		this.dispatchEvent(new Event('FormElementsAdded', {bubbles: true}));
+		this.dispatchEvent(new Event('FormElementsAdded', { bubbles: true }));
 	}
 
 	gameStateChangedEventHandler(event) {
 		if (event.detail) {
-			this.querySelector(`[name="running"][value="${ event.detail.running }"]`).click();
+			this.querySelector(`[name="running"][value="${event.detail.running}"]`).click();
 		}
 	}
 
 	landerStateChangedEventHandler(event) {
 		if (event.detail) {
 			Object.keys(event.detail).forEach((keyName) => {
-				this.querySelector(`[name="${ keyName }"]`).value = event.detail[keyName];
+				let currentValue = parseInt(this.querySelector(`[name="${keyName}"]`).value);
+				this.querySelector(`[name="${keyName}"]`).value = currentValue + event.detail[keyName];
 			});
 		}
 	}
@@ -79,17 +81,39 @@ export default class GameControls extends GameElement {
 	keyboardHandler(event) {
 		console.log(event.key);
 
-		let change = {};
+		let landerChange = null;
+		let gameChange = null;
+
 		switch (event.key) {
 			case 'ArrowUp':
-				change.thruster = '10';
+				landerChange = {
+					thruster: 10
+				};
 				break;
 			case 'ArrowDown':
-				change.thruster = '-10';
+				landerChange = {
+					thruster: -10
+				};
+				break;
+			case 'ArrowRight':
+				landerChange = {
+					rotation: 10
+				};
+				break;
+			case 'ArrowLeft':
+				landerChange = {
+					rotation: -10
+				};
+				break;
+			case 'Escape':
+				gameChange = {
+					running: false
+				};
 				break;
 		}
 
-		console.log('change', change);
+		if (landerChange) dispatchEventWithDetails('LanderStateChanged', landerChange);
+		if (gameChange) dispatchEventWithDetails('GameStateChanged', gameChange);
 	}
 
 	registerHandlers() {
@@ -101,7 +125,6 @@ export default class GameControls extends GameElement {
 	connectedCallback() {
 		super.connectedCallback();
 		this.createFormControls();
-		
 	}
 }
 

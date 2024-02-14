@@ -17,7 +17,7 @@ vehicle-booster {
     --booster_scale_default: scaleY(1);
     --booster_scale_smaller: scaleY(0.75);
     --booster_length_multiplier: 5;
-    --booster_length: calc(var(--lander_booster) * var(--booster_length_multiplier) / 100);
+    --booster_length: calc(var(--lander_thruster) * var(--booster_length_multiplier) / 100);
 
     display: block;
     position: absolute;

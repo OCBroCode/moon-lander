@@ -79,8 +79,6 @@ export default class GameControls extends GameElement {
 	}
 
 	keyboardHandler(event) {
-		console.log(event.key);
-
 		let landerChange = null;
 		let gameChange = null;
 
@@ -108,6 +106,11 @@ export default class GameControls extends GameElement {
 			case 'Escape':
 				gameChange = {
 					running: false
+				};
+				break;
+			case 'Enter':
+				gameChange = {
+					running: true
 				};
 				break;
 		}

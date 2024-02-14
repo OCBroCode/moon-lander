@@ -16,10 +16,7 @@ export default class LanderVehicle extends GameElement {
 					propertyName = '--lander_rotation';
 					break;
 				case 'thruster':
-					break;
-				case 'speed':
-					break;
-				case 'altitude':
+					propertyName = '--lander_thruster';
 					break;
 			}
 

@@ -1,17 +1,44 @@
 lander-vehicle {
 	display: block;
 	position: absolute;
-	inset-block-start: calc(var(--lander_position_y) * 1%);
+	inset-block-end: calc(var(--lander_position_y) * 1%);
 	inset-inline-start: calc(var(--lander_position_x) * 1%);
 	inline-size: calc(5 * var(--unit_root));
 	block-size: calc(4 * var(--unit_root));
 	transform-origin: 50% 50%;
-	transition-property: transform;
-	transition-duration: 1s;
+	transition-property: transform, inset-block-end, inset-inline-start;
+	transition-duration: 0.35s;
 	transition-timing-function: linear;
 	transform:
 		translate(-50%, -50%)
 		rotate(
 			calc(var(--lander_rotation) * 1deg)
 		);
+}
+
+lander-vehicle .leg {
+	transition-property: transform;
+	transition-duration: 0.5s;
+	transition-timing-function: linear;
+	transform: rotate(0deg);
+}
+
+lander-vehicle #leg-left {
+	transform-origin: 0% 25%;
+}
+
+lander-vehicle #leg-right {
+	transform-origin: 100% 25%;
+}
+
+lander-vehicle [data-gear-mode="flight"] #leg-left {
+	transform: rotate(-20deg);
+}
+
+lander-vehicle [data-gear-mode="flight"] #leg-right {
+	transform: rotate(20deg);
+}
+
+lander-vehicle [data-gear-mode="flight"] #leg-front {
+	transform: translateY(-8%);
 }

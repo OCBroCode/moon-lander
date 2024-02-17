@@ -8,6 +8,7 @@ export default class GameControls extends GameElement {
 	constructor() {
 		super();
 		this.registerHandlers();
+		this.addEventListener('change', event => {console.log(event.target)});
 	}
 
 	createRangeControl(keyName, modelValue) {
@@ -15,7 +16,7 @@ export default class GameControls extends GameElement {
 
 		return `<div class="control">
 			<label for="${controlId}">${modelValue.name}</label><br>
-			<input type="range" min="${modelValue.min}" max="${modelValue.max}" id="${controlId}" name="${keyName}">
+			<input type="range" min="${modelValue.min}" max="${modelValue.max}" id="${controlId}" name="${keyName}" value="${modelValue.initial}">
 			<output for="${keyName}" name="result_${keyName}"></output>
 		</div>`;
 	}

@@ -8,7 +8,7 @@ export default class GameEngine extends GameElement {
 	#gameRunning;
 	#gameStarted;
 	#gameEnded;
-	#gameEventFrequency = 10; // Milliseconds
+	#gameEventFrequency = 100; // Milliseconds
 	#gameDuration = 0; // Counts the time elapsed based on multiples of `this.#gameEventFrequency`
 	#gameInterval; // Placeholder for window.setInterval so that it can be cleared later.
 
@@ -24,18 +24,17 @@ export default class GameEngine extends GameElement {
 	constructor() {
 		super();
 
-		Object.keys(MODEL).forEach((keyName) => {
-			let currentItem = MODEL[keyName];
-			if (currentItem.affects === 'lander') this.modelLander[keyName] = currentItem.initial;
-		});
-
 		this.handleKeyboardInterrupts = this.handleKeyboardInterrupts.bind(this);
 		this.setInitialValuesAndStart = this.setInitialValuesAndStart.bind(this);
 		this.#gameLoop = this.#gameLoop.bind(this);
 	}
 
 	#gameLoop = function () {
-		this.#gameDuration++;
+		this.#gameDuration = this.#gameDuration + this.#gameEventFrequency;
+		let newPositionYAdjustment = -1;
+		
+		this.modelLander.position_y = this.modelLander.position_y + newPositionYAdjustment;
+		this.#landerStateChanged({position_y: newPositionYAdjustment});
 	}
 
 	startGame() {
@@ -48,11 +47,15 @@ export default class GameEngine extends GameElement {
 	pauseGame() {
 		this.#gameRunning = false;
 		this.#gameRunningStateChanged(false);
+		window.clearInterval(this.#gameInterval);
 	}
 
 	unpauseGame() {
-		this.#gameRunning = true;
-		this.#gameRunningStateChanged(true);
+		if (!this.#gameRunning) {
+			this.#gameRunning = true;
+			this.#gameRunningStateChanged(true);
+			this.#gameInterval = window.setInterval(this.#gameLoop, this.#gameEventFrequency);
+		}
 	}
 
 	stopGame() {
@@ -63,6 +66,11 @@ export default class GameEngine extends GameElement {
 	}
 
 	setInitialValuesAndStart() {
+		Object.keys(MODEL).forEach((keyName) => {
+			let currentItem = MODEL[keyName];
+			if (currentItem.affects === 'lander') this.modelLander[keyName] = currentItem.initial;
+			this.style.setProperty(`--lander_${keyName}`, currentItem.initial);
+		});
 		this.#landerStateChanged(this.modelLander);
 		this.startGame();
 	}

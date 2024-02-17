@@ -22,7 +22,7 @@ vehicle-booster {
     display: block;
     position: absolute;
     z-index: -1;
-    inset-block-start: 99%;
+    inset-block-start: 100%;
     inset-inline-start: 50%;
     block-size: calc(var(--booster_length) * var(--unit_root));
     inline-size: calc(var(--unit_root) / 2);

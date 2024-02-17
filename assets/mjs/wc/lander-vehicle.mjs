@@ -12,7 +12,8 @@ export default class LanderVehicle extends GameElement {
 			let propertyName = `--lander_${keyName}`;
 			let currentValue = parseFloat(getComputedStyle(this.gameEngineElement).getPropertyValue(propertyName));
 			
-			if (currentValue) {
+			
+			if (currentValue !== null || undefined) {
 				this.gameEngineElement.style.setProperty(propertyName, currentValue + newValue);
 			}
 		});

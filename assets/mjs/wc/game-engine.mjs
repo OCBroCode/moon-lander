@@ -71,7 +71,6 @@ export default class GameEngine extends GameElement {
 			if (currentItem.affects === 'lander') this.modelLander[keyName] = currentItem.initial;
 			this.style.setProperty(`--lander_${keyName}`, currentItem.initial);
 		});
-		this.#landerStateChanged(this.modelLander);
 		this.startGame();
 	}
 

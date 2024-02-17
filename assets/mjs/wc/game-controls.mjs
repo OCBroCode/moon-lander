@@ -8,7 +8,6 @@ export default class GameControls extends GameElement {
 	constructor() {
 		super();
 		this.registerHandlers();
-		this.addEventListener('change', event => {console.log(event.target)});
 	}
 
 	createRangeControl(keyName, modelValue) {

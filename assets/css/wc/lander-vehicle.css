@@ -3,8 +3,8 @@ lander-vehicle {
 	position: absolute;
 	inset-block-start: calc(var(--lander_position_y) * 1%);
 	inset-inline-start: calc(var(--lander_position_x) * 1%);
-	inline-size: calc(2.75 * var(--unit_root));
-	block-size: calc(5 * var(--unit_root));
+	inline-size: calc(5 * var(--unit_root));
+	block-size: calc(4 * var(--unit_root));
 	transform-origin: 50% 50%;
 	transition-property: transform;
 	transition-duration: 1s;

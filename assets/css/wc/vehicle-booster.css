@@ -25,7 +25,7 @@ vehicle-booster {
     inset-block-start: 99%;
     inset-inline-start: 50%;
     block-size: calc(var(--booster_length) * var(--unit_root));
-    inline-size: var(--unit_root);
+    inline-size: calc(var(--unit_root) / 2);
     transform: var(--booster_default_translate) var(--booster_scale_default);
     transform-origin: 50% 0%;
     background-color: red;

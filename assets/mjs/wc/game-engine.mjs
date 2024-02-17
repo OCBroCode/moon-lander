@@ -36,10 +36,6 @@ export default class GameEngine extends GameElement {
 
 	#gameLoop = function () {
 		this.#gameDuration++;
-
-		// if (this.#gameDuration > 1_000) {
-		// 	this.stopGame();
-		// }
 	}
 
 	startGame() {
@@ -61,7 +57,7 @@ export default class GameEngine extends GameElement {
 
 	stopGame() {
 		this.#gameEnded = true;
-		console.log('game ended after duration', this.#gameDuration);
+		console.log('Game ended after duration', this.#gameDuration);
 		document.removeEventListener('keyup', this.handleKeyboardInterrupts);
 		window.clearInterval(this.#gameInterval);
 	}
@@ -72,7 +68,6 @@ export default class GameEngine extends GameElement {
 	}
 
 	handleKeyboardInterrupts(event) {
-		console.log('event.key', event.key);
 		switch (event.key) {
 			case 'Enter':
 				if (this.#gameStarted && !this.#gameRunning) {

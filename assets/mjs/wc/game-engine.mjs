@@ -32,6 +32,13 @@ export default class GameEngine extends GameElement {
 	#gameLoop = function () {
 		this.#gameDuration = this.#gameDuration + this.#gameEventFrequency;
 		let newPositionYAdjustment = -1;
+
+		/*
+		If thruster = 0
+			newSpeed = currentSpeed + gravity
+		If thruster > 0
+			newSpeed = currentSpeed - (thruster - gravity)
+		*/
 		
 		this.modelLander.position_y = this.modelLander.position_y + newPositionYAdjustment;
 		this.#landerStateChanged({position_y: newPositionYAdjustment});

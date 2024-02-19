@@ -2,7 +2,7 @@
 
 I'm fascinated by the prospect of a little lander working its way to the surface of an alien world.
 
-This project is a Web-based (and overly) simulation of a craft trying to successfully softly land on the surface of a moon or planet.
+This project is a Web-based (and overly) simple simulation of a craft trying to successfully softly land on the surface of a moon or planet.
 I wanted to use this project as a vehicle for learning more about Web Components, ES Modules, Event-based communication, and using PWA technologies.
 
 [Check out the work in progress at `ndorfin.github.io/moon-lander`](https://ndorfin.github.io/moon-lander/)

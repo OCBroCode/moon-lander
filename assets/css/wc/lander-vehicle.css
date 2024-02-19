@@ -7,7 +7,7 @@ lander-vehicle {
 	block-size: calc(4 * var(--unit_root));
 	transform-origin: 50% 50%;
 	transition-property: transform, inset-block-end, inset-inline-start;
-	transition-duration: 0.35s;
+	transition-duration: 0.05s;
 	transition-timing-function: linear;
 	transform:
 		translate(-50%, -50%)
@@ -18,8 +18,8 @@ lander-vehicle {
 
 lander-vehicle .leg {
 	transition-property: transform;
-	transition-duration: 0.5s;
-	transition-timing-function: linear;
+	transition-duration: 2s;
+	transition-timing-function: ease-in-out;
 	transform: rotate(0deg);
 }
 

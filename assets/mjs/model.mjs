@@ -1,14 +1,4 @@
 export const MODEL = {
-	position_y: {
-		name: 'Y Position',
-		type: 'integer',
-		formElement: 'range',
-		initial: 100,
-		min: 0,
-		max: 120,
-		affects: 'lander',
-		eventName: 'LanderStateChanged',
-	},
 	position_x: {
 		name: 'X Position',
 		type: 'integer',
@@ -17,7 +7,15 @@ export const MODEL = {
 		min: 0,
 		max: 100,
 		affects: 'lander',
-		eventName: 'LanderStateChanged',
+	},
+	position_y: {
+		name: 'Y Position',
+		type: 'integer',
+		formElement: 'range',
+		initial: 60,
+		min: 0,
+		max: 120,
+		affects: 'lander',
 	},
 	rotation: {
 		name: 'Rotation',
@@ -27,7 +25,6 @@ export const MODEL = {
 		min: -100,
 		max: 100,
 		affects: 'lander',
-		eventName: 'LanderStateChanged',
 	},
 	running: {
 		name: 'Running',
@@ -37,7 +34,6 @@ export const MODEL = {
 		labelTrue: 'Running',
 		labelFalse: 'Stopped',
 		affects: 'game',
-		eventName: 'GameStateChanged',
 	},
 	speed: {
 		name: 'Speed',
@@ -47,7 +43,6 @@ export const MODEL = {
 		min: 0,
 		max: 100,
 		affects: 'lander',
-		eventName: 'LanderStateChanged',
 	},
 	thruster: {
 		name: 'Thruster',
@@ -57,6 +52,28 @@ export const MODEL = {
 		min: 0,
 		max: 100,
 		affects: 'lander',
-		eventName: 'LanderStateChanged',
+	},
+};
+
+export const KEYMAP = {
+	'ArrowUp': {
+		affects: 'thruster',
+		change: 1,
+		active: false,
+	},
+	'ArrowDown': {
+		affects: 'thruster',
+		change: -1,
+		active: false,
+	},
+	'ArrowLeft': {
+		affects: 'rotation',
+		change: -1,
+		active: false,
+	},
+	'ArrowRight': {
+		affects: 'rotation',
+		change: 1,
+		active: false,
 	},
 };

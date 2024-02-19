@@ -5,11 +5,6 @@ import { dispatchEventWithDetails } from './../events.mjs';
 export default class GameControls extends GameElement {
 	#formElements = MODEL;
 
-	constructor() {
-		super();
-		this.registerHandlers();
-	}
-
 	createRangeControl(keyName, modelValue) {
 		let controlId = `rng_${keyName}`;
 
@@ -61,68 +56,6 @@ export default class GameControls extends GameElement {
 
 		this.appendChild(form);
 		this.dispatchEvent(new Event('FormElementsAdded', { bubbles: true }));
-	}
-
-	gameStateChangedEventHandler(event) {
-		if (event.detail) {
-			this.querySelector(`[name="running"][value="${event.detail.running}"]`).click();
-		}
-	}
-
-	landerStateChangedEventHandler(event) {
-		if (event.detail) {
-			Object.keys(event.detail).forEach((keyName) => {
-				let currentValue = parseInt(this.querySelector(`[name="${keyName}"]`).value);
-				this.querySelector(`[name="${keyName}"]`).value = currentValue + event.detail[keyName];
-			});
-		}
-	}
-
-	keyboardHandler(event) {
-		let landerChange = null;
-		let gameChange = null;
-
-		switch (event.key) {
-			case 'ArrowUp':
-				landerChange = {
-					thruster: 10
-				};
-				break;
-			case 'ArrowDown':
-				landerChange = {
-					thruster: -10
-				};
-				break;
-			case 'ArrowRight':
-				landerChange = {
-					rotation: 10
-				};
-				break;
-			case 'ArrowLeft':
-				landerChange = {
-					rotation: -10
-				};
-				break;
-			case 'Escape':
-				gameChange = {
-					running: false
-				};
-				break;
-			case 'Enter':
-				gameChange = {
-					running: true
-				};
-				break;
-		}
-
-		if (landerChange) dispatchEventWithDetails('LanderStateChanged', landerChange);
-		if (gameChange) dispatchEventWithDetails('GameStateChanged', gameChange);
-	}
-
-	registerHandlers() {
-		document.addEventListener('GameStateChanged', this.gameStateChangedEventHandler);
-		document.addEventListener('LanderStateChanged', this.landerStateChangedEventHandler);
-		document.addEventListener('keyup', this.keyboardHandler);
 	}
 
 	connectedCallback() {

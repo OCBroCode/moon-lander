@@ -128,7 +128,7 @@ export default class GameEngine extends GameElement {
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.addEventListener('FormElementsAdded', this.setInitialValuesAndStart, {once: true});
+		this.addEventListener('InstrumentationAdded', this.setInitialValuesAndStart, {once: true});
 		document.addEventListener('keydown', this.handleGameStateKeyboardInupts);
 	}
 

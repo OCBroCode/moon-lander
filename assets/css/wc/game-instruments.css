@@ -1,0 +1,42 @@
+game-instruments {
+	display: block;
+}
+
+.notification {
+	text-transform: uppercase;
+	font-weight: 700;
+	opacity: 0;
+}
+
+.notification.warning {
+	color: gold;
+}
+
+.notification.error {
+	color: red;
+}
+
+#map-lander-position {
+	position: absolute;
+	z-index: 20;
+	inset-block-end: calc(0.5 * var(--unit_root));
+	inset-inline-start: calc(0.5 * var(--unit_root));
+	inline-size: calc(5 * var(--unit_root));
+	block-size: calc(6 * var(--unit_root));
+	overflow: hidden;
+	border: 2px solid #ccc;
+	border-radius: calc(0.5 * var(--unit_root));
+	background-color: black;
+}
+
+#map-lander-icon {
+	position: absolute;
+	display: block;
+	background-color: orange;
+	inline-size: calc(0.5 * var(--unit_root));
+	block-size: calc(0.5 * var(--unit_root));
+	inset-block-end: calc(var(--lander_position_y) * 1%);
+	inset-inline-start: calc(var(--lander_position_x) * 1%);
+	border-radius: calc(0.125 * var(--unit_root));
+	transform: translateX(-50%);
+}

@@ -10,7 +10,7 @@ lander-vehicle {
 	transition-duration: 0.05s;
 	transition-timing-function: linear;
 	transform:
-		translate(-50%, -50%)
+		translateX(-50%)
 		rotate(
 			calc(var(--lander_rotation) * 1deg)
 		);

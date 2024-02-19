@@ -1,0 +1,35 @@
+instrument-map {
+	inset-block-end: calc(0.5 * var(--unit_root));
+	inset-inline-start: calc(0.5 * var(--unit_root));
+	inline-size: calc(7 * var(--unit_root));
+	block-size: calc(10 * var(--unit_root));
+}
+
+instrument-map-lander {
+	display: block;
+	position: absolute;
+	inline-size: calc(0.5 * var(--unit_root));
+	block-size: calc(0.5 * var(--unit_root));
+	inset-block-end: calc(var(--lander_position_y) * 1%);
+	inset-inline-start: calc(var(--lander_position_x) * 1%);
+	border-radius: calc(0.125 * var(--unit_root));
+	transition-property: inset-block-end, inset-inline-start;
+	transition-duration: 0.05s;
+	transition-timing-function: linear;
+	transform: translateX(-50%);
+	background-color: orange;
+}
+
+.notification {
+	text-transform: uppercase;
+	font-weight: 700;
+	opacity: 0;
+}
+
+.notification.warning {
+	color: gold;
+}
+
+.notification.error {
+	color: red;
+}

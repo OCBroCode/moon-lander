@@ -1,0 +1,19 @@
+instrument-thruster {
+	inset-block-end: calc(0.5 * var(--unit_root));
+	inset-inline-end: calc(0.5 * var(--unit_root));
+	inline-size: calc(4 * var(--unit_root));
+	block-size: calc(10 * var(--unit_root));
+	background-image: linear-gradient(hsl(0deg, 100%, 50%), hsl(40deg, 100%, 50%));
+	background-clip: content-box;
+}
+
+instrument-thruster-amount {
+	display: block;
+	position: absolute;
+	inset: 0;
+	inset-block-end: calc(var(--lander_thruster) * 1%);
+	transition-property: inset-block-end;
+	transition-duration: 0.05s;
+	transition-timing-function: linear;
+	background-color: black;
+}

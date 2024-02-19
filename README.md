@@ -72,6 +72,8 @@ This component first renders all the controls that match the given model of metr
 - Deploy landing legs when near landing, or the user must deploy them at the right speed and altitude.
 - Navigate craters, hills, and boulders
 - Massive lateral speed
+- Rapid orbits can affect day/night cycling
+- The higher the altitude, the more round the terrain!
 - Use a parallax or exponentially scaled background, so that the terrain rushes up to the lander as it approaches.
 - Use a fixed fuel-tank, too much thrusting = running out of fuel quicker.
 - Explore multiple planets, with different environments:

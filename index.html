@@ -6,14 +6,34 @@
 <style>
 @import url("./assets/css/setup.css?date=2023-12-15");
 @import url("./assets/css/wc/game-engine.css?date=2023-12-15");
-@import url("./assets/css/wc/game-controls.css?date=2023-12-15");
+@import url("./assets/css/wc/game-instruments.css?date=2023-12-15");
+@import url("./assets/css/wc/instrument-map.css?date=2023-12-15");
+@import url("./assets/css/wc/instrument-thruster.css?date=2023-12-15");
+@import url("./assets/css/wc/instrument-fuel.css?date=2023-12-15");
+@import url("./assets/css/wc/instrument-rotation.css?date=2023-12-15");
 @import url("./assets/css/wc/lander-vehicle.css?date=2023-12-15");
 @import url("./assets/css/wc/vehicle-booster.css?date=2023-12-15");
 @import url("./assets/css/wc/lunar-surface.css?date=2023-12-15");
-@import url("./assets/css/wc/star-field.css?date=2023-12-15");
 </style>
+<script type="module" defer src="./assets/mjs/index.mjs?date=2023-12-26"></script>
 <game-engine>
-	<game-controls></game-controls>
+	<game-instruments>
+		<instrument-map class="instrument" label="Position">
+			<instrument-map-lander></instrument-map-lander>
+			<span id="warning-low-altitude" class="notification warning">Low altitude</span>
+			<span id="warning-signal-weak" class="notification warning">Weak signal</span>
+			<span id="error-no-signal" class="notification error">Signal lost</span>
+		</instrument-map>
+		<instrument-thruster class="instrument" label="Thruster">
+			<instrument-thruster-amount></instrument-thruster-amount>
+		</instrument-thruster>
+		<instrument-fuel class="instrument" label="Fuel">
+			<instrument-fuel-amount></instrument-fuel-amount>
+		</instrument-fuel>
+		<instrument-rotation class="instrument" label="Rotation">
+			<instrument-rotation-amount></instrument-rotation-amount>
+		</instrument-rotation>
+	</game-instruments>
 	<lander-vehicle>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 50 512 400" fill="#000000" stroke="#000000" stroke-width="0.005" data-gear-mode="flight">
 			<!-- https://www.svgrepo.com/svg/163849/lander -->
@@ -54,7 +74,4 @@
 		<vehicle-booster></vehicle-booster>
 	</lander-vehicle>
 	<lunar-surface></lunar-surface>
-	<star-field></star-field>
 </game-engine>
-
-<script type="module" src="./assets/mjs/index.mjs?date=2023-12-26"></script>

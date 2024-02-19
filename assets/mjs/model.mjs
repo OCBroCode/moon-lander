@@ -56,12 +56,12 @@ export const KEYMAP = {
 	},
 	'ArrowLeft': {
 		affects: 'rotation',
-		change: -1,
+		change: -5,
 		active: false,
 	},
 	'ArrowRight': {
 		affects: 'rotation',
-		change: 1,
+		change: 5,
 		active: false,
 	},
 };

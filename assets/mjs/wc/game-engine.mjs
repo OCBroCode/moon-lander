@@ -1,5 +1,5 @@
-import GameElement from './game-element.mjs';
-import { MODEL, KEYMAP } from './../model.mjs';
+import GameElement from './game-element.mjs?date=2023-12-26';
+import { MODEL, KEYMAP } from './../model.mjs?date=2023-12-26';
 
 const keyboardEventsToWatch = ['keydown', 'keyup'];
 

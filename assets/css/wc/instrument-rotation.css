@@ -1,0 +1,46 @@
+instrument-rotation {
+	inset-block-end: calc(0.5 * var(--unit_root));
+	inset-inline-start: 50%;
+	transform: translateX(-50%);
+	inline-size: calc(10 * var(--unit_root));
+	block-size: calc(2 * var(--unit_root));
+	background-color: white;
+}
+
+instrument-rotation-amount {
+	/* 
+		The input `--lander_rotation` can be an integer between -100 (full-left rotation) and 100 (full-right rotation).
+		The closer the value is 0, the better.
+	 */
+
+	--rotation-indicator-position: calc(50 - (var(--lander_rotation) / 2));
+	
+	/*
+		We want to use hue degrees, where:
+			 -100                   0                    100
+			<----------------------------------------------->
+			 0deg                120deg                 0deg 
+			 (Red)               (Green)               (Red)
+	*/
+
+	/* First strip any negative sign from the rotation amount */
+	--rotation-normalised: calc(
+		var(--lander_rotation) * var(--lander_rotation) / 10000
+	);
+
+	--rotation-indicator-danger-level: calc(
+		120 - (var(--rotation-normalised) * 120)
+	);
+
+	display: block;
+	position: absolute;
+	inset-block-start: 0;
+	inset-block-end: 0;
+	inset-inline-end: calc(var(--rotation-indicator-position) * 1%);
+	inline-size: 6px;
+	transition-property: inset-block-end;
+	transition-duration: 0.05s;
+	transition-timing-function: linear;
+	background-color: grey;
+	background-color: hsl(calc(var(--rotation-indicator-danger-level) * 1deg), 100%, 50%);
+}

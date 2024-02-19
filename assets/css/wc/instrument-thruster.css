@@ -12,5 +12,8 @@ instrument-thruster-amount {
 	position: absolute;
 	inset: 0;
 	inset-block-end: calc(var(--lander_thruster) * 1%);
+	transition-property: inset-block-end;
+	transition-duration: 0.05s;
+	transition-timing-function: linear;
 	background-color: black;
 }

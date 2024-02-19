@@ -46,12 +46,12 @@ export const MODEL = {
 export const KEYMAP = {
 	'ArrowUp': {
 		affects: 'thruster',
-		change: 1,
+		change: 5,
 		active: false,
 	},
 	'ArrowDown': {
 		affects: 'thruster',
-		change: -1,
+		change: -5,
 		active: false,
 	},
 	'ArrowLeft': {

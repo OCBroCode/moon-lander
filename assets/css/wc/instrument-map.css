@@ -13,6 +13,9 @@ instrument-map-lander {
 	inset-block-end: calc(var(--lander_position_y) * 1%);
 	inset-inline-start: calc(var(--lander_position_x) * 1%);
 	border-radius: calc(0.125 * var(--unit_root));
+	transition-property: inset-block-end, inset-inline-start;
+	transition-duration: 0.05s;
+	transition-timing-function: linear;
 	transform: translateX(-50%);
 	background-color: orange;
 }

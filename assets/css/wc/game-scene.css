@@ -1,0 +1,9 @@
+game-scene {
+	position: absolute;
+	inset: 2rem;
+	z-index: 1;
+	overflow: hidden;
+	border-radius: 1rem;
+	border: 2px solid grey;
+	background-color: hsl(0deg,0%,0%);
+}

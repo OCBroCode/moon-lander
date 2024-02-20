@@ -1,11 +1,12 @@
 game-instruments {
 	display: block;
+	position: absolute;
+	inset: 0;
 }
 
 .instrument {
 	display: block;
-	position: absolute;
-	z-index: 20;
+	position: relative;
 	border: 2px solid hsl(0, 0%, 50%);
 	background-color: black;
 	box-shadow: inset 0 0 0 2px hsla(0, 0%, 0%, 0.5);

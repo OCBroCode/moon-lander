@@ -1,6 +1,4 @@
 instrument-map {
-	inset-block-end: calc(0.5 * var(--unit_root));
-	inset-inline-start: calc(0.5 * var(--unit_root));
 	inline-size: calc(7 * var(--unit_root));
 	block-size: calc(10 * var(--unit_root));
 }
@@ -18,18 +16,4 @@ instrument-map-lander {
 	transition-timing-function: linear;
 	transform: translateX(-50%);
 	background-color: orange;
-}
-
-.notification {
-	text-transform: uppercase;
-	font-weight: 700;
-	opacity: 0;
-}
-
-.notification.warning {
-	color: gold;
-}
-
-.notification.error {
-	color: red;
 }

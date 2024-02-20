@@ -1,6 +1,4 @@
 instrument-fuel {
-	inset-block-end: calc(0.5 * var(--unit_root));
-	inset-inline-end: calc(5.5 * var(--unit_root));
 	inline-size: calc(2 * var(--unit_root));
 	block-size: calc(10 * var(--unit_root));
 	background-image: linear-gradient(hsl(198.74deg 100% 50%), hsl(218.79deg 100% 50%));

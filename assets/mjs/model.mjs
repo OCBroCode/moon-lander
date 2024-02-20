@@ -8,7 +8,7 @@ export const MODEL = {
 	},
 	position_y: {
 		name: 'Y Position',
-		initial: 60,
+		initial: 80,
 		min: 0,
 		max: 100,
 		affects: 'lander',
@@ -16,8 +16,8 @@ export const MODEL = {
 	rotation: {
 		name: 'Rotation',
 		initial: 0,
-		min: -100,
-		max: 100,
+		min: -90,
+		max: 90,
 		affects: 'lander',
 	},
 	running: {

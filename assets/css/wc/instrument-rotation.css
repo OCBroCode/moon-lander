@@ -1,12 +1,11 @@
-instrument-rotation {
+lander-instrument[property="rotation"] {
 	inline-size: calc(10 * var(--unit_root));
 	block-size: calc(2 * var(--unit_root));
-	background-color: white;
 }
 
-instrument-rotation-amount {
+lander-instrument[property="rotation"] instrument-amount {
 	/* 
-		The input `--lander_rotation` can be an integer between -100 (full-left rotation) and 100 (full-right rotation).
+		The input `--lander_rotation` can be an integer between -90 (full-left rotation) and 90 (full-right rotation).
 		The closer the value is 0, the better.
 	 */
 
@@ -14,7 +13,7 @@ instrument-rotation-amount {
 	
 	/*
 		We want to use hue degrees, where:
-			 -100                   0                    100
+			 -90                   0                      90
 			<----------------------------------------------->
 			 0deg                120deg                 0deg 
 			 (Red)               (Green)               (Red)
@@ -29,10 +28,7 @@ instrument-rotation-amount {
 		120 - (var(--rotation-normalised) * 120)
 	);
 
-	display: block;
-	position: absolute;
-	inset-block-start: 0;
-	inset-block-end: 0;
+	inset-inline-start: auto;
 	inset-inline-end: calc(var(--rotation-indicator-position) * 1%);
 	inline-size: 6px;
 	transition-property: inset-block-end;

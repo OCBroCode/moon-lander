@@ -1,14 +1,10 @@
-instrument-fuel {
+lander-instrument[property="fuel"] {
 	inline-size: calc(2 * var(--unit_root));
 	block-size: calc(10 * var(--unit_root));
 	background-image: linear-gradient(hsl(198.74deg 100% 50%), hsl(218.79deg 100% 50%));
-	background-clip: content-box;
 }
 
-instrument-fuel-amount {
-	display: block;
-	position: absolute;
-	inset: 0;
+lander-instrument[property="fuel"] instrument-amount {
 	inset-block-end: calc(var(--lander_fuel) * 1%);
 	background-color: black;
 }

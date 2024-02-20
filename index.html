@@ -9,7 +9,8 @@
 @import url("./assets/css/wc/game-scene.css?date=2023-12-15");
 @import url("./assets/css/wc/game-instruments.css?date=2023-12-15");
 @import url("./assets/css/wc/instrument-dock.css?date=2023-12-15");
-@import url("./assets/css/wc/instrument-map.css?date=2023-12-15");
+@import url("./assets/css/wc/lander-instrument.css?date=2023-12-15");
+@import url("./assets/css/wc/instrument-position.css?date=2023-12-15");
 @import url("./assets/css/wc/instrument-thruster.css?date=2023-12-15");
 @import url("./assets/css/wc/instrument-fuel.css?date=2023-12-15");
 @import url("./assets/css/wc/instrument-rotation.css?date=2023-12-15");
@@ -29,30 +30,30 @@
 			</system-notifications>
 		</instrument-dock>
 		<instrument-dock position="bottom-left">
-			<instrument-map class="instrument" label="Position">
+			<lander-instrument property="position" label="Position">
 				<instrument-readout>
-					<instrument-map-lander></instrument-map-lander>
+					<instrument-position-lander></instrument-position-lander>
 				</instrument-readout>
-			</instrument-map>
+			</lander-instrument>
 		</instrument-dock>
 		<instrument-dock position="bottom-right">
-			<instrument-thruster class="instrument" label="Thruster">
+			<lander-instrument property="thruster" label="Thruster">
 				<instrument-readout>
-					<instrument-thruster-amount></instrument-thruster-amount>
+					<instrument-amount></instrument-amount>
 				</instrument-readout>
-			</instrument-thruster>
-			<instrument-fuel class="instrument" label="Fuel">
+			</lander-instrument>
+			<lander-instrument property="fuel" label="Fuel">
 				<instrument-readout>
-					<instrument-fuel-amount></instrument-fuel-amount>
+					<instrument-amount></instrument-amount>
 				</instrument-readout>
-			</instrument-fuel>
+			</lander-instrument>
 		</instrument-dock>
 		<instrument-dock position="bottom-center">
-			<instrument-rotation class="instrument" label="Rotation">
+			<lander-instrument property="rotation" label="Rotation">
 				<instrument-readout>
-					<instrument-rotation-amount></instrument-rotation-amount>
+					<instrument-amount></instrument-amount>
 				</instrument-readout>
-			</instrument-rotation>
+			</lander-instrument>
 		</instrument-dock>
 	</game-instruments>
 	<game-scene>

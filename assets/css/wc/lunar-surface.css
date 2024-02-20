@@ -5,6 +5,9 @@ lunar-surface {
 	inset-block-end: 0;
 	inset-inline-start: 0;
 	inset-inline-end: 0;
-  background-color: hsl(0, 0%, 20%);
-	background-image: linear-gradient(hsl(0, 0%, 20%), hsl(0, 0%, 10%) 50%);
+  background-color: hsl(32, 85%, 17%);
+	background-image: linear-gradient(
+		hsla(0, 0%, 20%, 0.2),
+		hsla(0, 0%, 10%, 0.2) 50%
+	);
 }

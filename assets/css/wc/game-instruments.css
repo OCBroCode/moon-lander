@@ -29,3 +29,10 @@ game-instruments {
 	background-color: hsl(0, 0%, 50%);
 	border-radius: 2px 2px 0 0;
 }
+
+instrument-readout {
+	display: block;
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+}

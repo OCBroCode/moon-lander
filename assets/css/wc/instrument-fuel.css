@@ -1,3 +1,7 @@
+/*
+	See `lander-instrument.css` for global styles
+*/
+
 lander-instrument[property="fuel"] {
 	inline-size: calc(2 * var(--unit_root));
 	block-size: calc(10 * var(--unit_root));

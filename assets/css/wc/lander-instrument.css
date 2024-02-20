@@ -1,27 +1,28 @@
 lander-instrument {
+	--instrument-border-width: calc(0.125 * var(--unit_root));
+
 	display: block;
 	position: relative;
-	border: 2px solid hsl(0, 0%, 50%);
+	border: var(--instrument-border-width) solid hsl(0, 0%, 50%);
 	background-color: black;
-	box-shadow: inset 0 0 0 2px hsla(0, 0%, 0%, 0.5);
 }
 
 lander-instrument::after {
 	display: block;
 	position: absolute;
-	inset-block-start: calc(-1em - 6px);
-	inset-inline-start: -2px;
-	inset-inline-end: -2px;
+	inset-block-start:  calc((var(--unit_root) * -1) - var(--instrument-border-width));
+	inset-inline-start: calc(var(--instrument-border-width) * -1);
+	inset-inline-end: calc(var(--instrument-border-width) * -1);
 	line-height: 1;
 	text-align: center;
 	content: attr(label);
-	font-size: 0.875rem;
+	font-size: calc(0.75 * var(--unit_root));
 	font-weight: 700;
 	text-transform: uppercase;
 	color: black;
-	border: 2px solid hsl(0, 0%, 50%);
+	border: var(--instrument-border-width) solid hsl(0, 0%, 50%);
 	background-color: hsl(0, 0%, 50%);
-	border-radius: 2px 2px 0 0;
+	border-radius: var(--instrument-border-width) var(--instrument-border-width) 0 0;
 }
 
 instrument-readout {
@@ -29,6 +30,7 @@ instrument-readout {
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
+	box-shadow: inset 0 0 0 var(--instrument-border-width) hsla(0, 0%, 0%, 0.5);
 }
 
 instrument-amount {

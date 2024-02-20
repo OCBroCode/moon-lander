@@ -89,14 +89,14 @@ export default class GameEngine extends GameElement {
 
 	checkLimits() {
 		for (let [landerProperty, value] of Object.entries(this.modelLander)) {
-			if (value > MODEL[landerProperty].max) {
-				if (landerProperty === 'thruster') {
-					this.modelLander[landerProperty] = MODEL[landerProperty].max;
+			if (landerProperty === 'position_x') {
+				if (value < 20 || value > 80) {
+					console.log('WARNING: Weak signal');
 				}
 			}
-			if (value < MODEL[landerProperty].min) {
-				if (landerProperty === 'thruster') {
-					this.modelLander[landerProperty] = MODEL[landerProperty].min;
+			if (landerProperty === 'rotation') {
+				if (value < -75 || value > 75) {
+					console.log('WARNING: Rotation nearing limits');
 				}
 			}
 			if (landerProperty === 'position_y') {
@@ -107,14 +107,14 @@ export default class GameEngine extends GameElement {
 					console.log('WARNING: High altitude');
 				}
 			}
-			if (landerProperty === 'position_x') {
-				if (value < 20 || value > 80) {
-					console.log('WARNING: Weak signal');
+			if (value > MODEL[landerProperty].max) {
+				if (landerProperty === 'thruster' || landerProperty === 'rotation') {
+					this.modelLander[landerProperty] = MODEL[landerProperty].max;
 				}
 			}
-			if (landerProperty === 'rotation') {
-				if (value < -75 || value > 75) {
-					console.log('WARNING: Rotation nearing limits');
+			if (value < MODEL[landerProperty].min) {
+				if (landerProperty === 'thruster' || landerProperty === 'rotation') {
+					this.modelLander[landerProperty] = MODEL[landerProperty].min;
 				}
 			}
 		}

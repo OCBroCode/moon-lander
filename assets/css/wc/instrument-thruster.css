@@ -1,3 +1,6 @@
+/*
+	See `lander-instrument.css` for global styles
+*/
 lander-instrument[property="thruster"] {
 	inline-size: calc(4 * var(--unit_root));
 	block-size: calc(10 * var(--unit_root));

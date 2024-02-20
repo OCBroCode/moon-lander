@@ -1,8 +1,23 @@
+/*
+	See `lander-instrument.css` for global styles
+*/
+
 lander-instrument[property="rotation"] {
 	inline-size: calc(10 * var(--unit_root));
 	block-size: calc(2 * var(--unit_root));
 }
 
+lander-instrument[property="rotation"] instrument-readout {
+	background-color: black;
+	background-image: linear-gradient(
+		90deg,
+		hsla(0, 100%, 50%, 0.2) 0%,
+		hsla(60, 100%, 50%, 0.2) 15%,
+		hsla(120, 100%, 50%, 0.2) 50%,
+		hsla(60, 100%, 50%, 0.2) 85%,
+		hsla(0, 100%, 50%, 0.2) 100%
+	)
+}
 lander-instrument[property="rotation"] instrument-amount {
 	/* 
 		The input `--lander_rotation` can be an integer between -90 (full-left rotation) and 90 (full-right rotation).
@@ -13,13 +28,17 @@ lander-instrument[property="rotation"] instrument-amount {
 	
 	/*
 		We want to use hue degrees, where:
-			 -90                   0                      90
-			<----------------------------------------------->
-			 0deg                120deg                 0deg 
-			 (Red)               (Green)               (Red)
+		Input: -100                   0                    100
+			    <----------------------------------------------->
+		Hue:   0deg                120deg                 0deg 
+			     (Red)               (Green)               (Red)
 	*/
 
-	/* First strip any negative sign from the rotation amount */
+	/*
+		First strip any negative sign from the rotation amount.
+		(There's no cross-browser `sqrt()` or `abs()` support yet)
+	
+	*/
 	--rotation-normalised: calc(
 		var(--lander_rotation) * var(--lander_rotation) / 10000
 	);
@@ -30,10 +49,11 @@ lander-instrument[property="rotation"] instrument-amount {
 
 	inset-inline-start: auto;
 	inset-inline-end: calc(var(--rotation-indicator-position) * 1%);
-	inline-size: 6px;
+	inline-size: calc(0.4 * var(--unit_root));
+	transform: translateX(50%);
 	transition-property: inset-block-end;
 	transition-duration: 0.05s;
 	transition-timing-function: linear;
-	background-color: grey;
 	background-color: hsl(calc(var(--rotation-indicator-danger-level) * 1deg), 100%, 50%);
+	border: var(--instrument-border-width) solid hsla(0, 0%, 0%, 0.75);
 }

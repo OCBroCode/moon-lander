@@ -1,0 +1,17 @@
+system-notifications {
+
+}
+
+.notification {
+	text-transform: uppercase;
+	font-weight: 700;
+	opacity: 0;
+}
+
+.notification.warning {
+	color: gold;
+}
+
+.notification.error {
+	color: red;
+}

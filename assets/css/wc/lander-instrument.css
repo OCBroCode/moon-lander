@@ -1,0 +1,40 @@
+lander-instrument {
+	--instrument-border-width: calc(0.125 * var(--unit_root));
+
+	display: block;
+	position: relative;
+	border: var(--instrument-border-width) solid hsl(0, 0%, 50%);
+	background-color: black;
+}
+
+lander-instrument::after {
+	display: block;
+	position: absolute;
+	inset-block-start:  calc((var(--unit_root) * -1) - var(--instrument-border-width));
+	inset-inline-start: calc(var(--instrument-border-width) * -1);
+	inset-inline-end: calc(var(--instrument-border-width) * -1);
+	line-height: 1;
+	text-align: center;
+	content: attr(label);
+	font-size: calc(0.75 * var(--unit_root));
+	font-weight: 700;
+	text-transform: uppercase;
+	color: black;
+	border: var(--instrument-border-width) solid hsl(0, 0%, 50%);
+	background-color: hsl(0, 0%, 50%);
+	border-radius: var(--instrument-border-width) var(--instrument-border-width) 0 0;
+}
+
+instrument-readout {
+	display: block;
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	box-shadow: inset 0 0 0 var(--instrument-border-width) hsla(0, 0%, 0%, 0.5);
+}
+
+instrument-amount {
+	display: block;
+	position: absolute;
+	inset: 0;
+}

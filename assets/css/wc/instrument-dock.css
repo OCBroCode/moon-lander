@@ -1,0 +1,38 @@
+instrument-dock {
+	--instrument-dock-default-offset: 1rem;
+	--instrument-dock-translation-x: 0%;
+	--instrument-dock-translation-y: 0%;
+
+	display: flex;
+	position: absolute;
+	flex-direction: row;
+	gap: 1rem;
+	transform: translate(var(--instrument-dock-translation-x), var(--instrument-dock-translation-y));
+}
+
+instrument-dock[position^="top-"] {
+	inset-block-start: var(--instrument-dock-default-offset);
+}
+
+instrument-dock[position^="center-"] {
+	--instrument-dock-translation-y: -50%;
+	inset-block-start: 50%;
+}
+
+instrument-dock[position^="bottom-"] {
+	inset-block-end: var(--instrument-dock-default-offset);
+}
+
+instrument-dock[position$="-left"] {
+	inset-inline-start: var(--instrument-dock-default-offset);
+}
+
+instrument-dock[position$="-center"] {
+	--instrument-dock-translation-x: -50%;
+	inset-inline-start: 50%;
+}
+
+instrument-dock[position$="-right"] {
+	inset-inline-end: var(--instrument-dock-default-offset);
+	flex-direction: row-reverse;
+}

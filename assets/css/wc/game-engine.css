@@ -1,5 +1,4 @@
 game-engine {
-    --unit_root: 20px;
     --lander_position_x: 50; /* 0 - 100 (percent) */
     --lander_position_y: 50; /* 0 - 100 (percent) */
     --lander_speed: 0;
@@ -9,15 +8,7 @@ game-engine {
     display: block;
     position: absolute;
     inset: 0;
-    z-index: 1;
-    overflow: hidden;
 }
 
-
-/* Set stacking contexts */
-game-engine incoming-asteroid { z-index: 30; }
-game-engine lander-vehicle    { z-index: 20; }
-game-engine game-controls     { z-index: 11; }
-game-engine lunar-surface     { z-index: 10; }
-game-engine oribiting-planet  { z-index: 2; }
-game-engine star-field        { z-index: 1; }
+game-engine game-instruments { z-index: 2; }
+game-engine game-scene       { z-index: 1; }

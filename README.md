@@ -85,4 +85,3 @@ This component first renders all the controls that match the given model of metr
 ## Questions
 
 - `requestAnimationFrame()` and smooth intervals vs. fixed intervals.
-- batching changes to the lander per interval - current design only supports one change per interval.

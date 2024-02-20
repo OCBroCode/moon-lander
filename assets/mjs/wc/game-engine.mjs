@@ -87,6 +87,39 @@ export default class GameEngine extends GameElement {
 		this.#startGame();
 	}
 
+	checkLimits() {
+		for (let [landerProperty, value] of Object.entries(this.modelLander)) {
+			if (landerProperty === 'position_x') {
+				if (value < 20 || value > 80) {
+					console.log('WARNING: Weak signal');
+				}
+			}
+			if (landerProperty === 'rotation') {
+				if (value < -75 || value > 75) {
+					console.log('WARNING: Rotation nearing limits');
+				}
+			}
+			if (landerProperty === 'position_y') {
+				if (value < 20) {
+					console.log('WARNING: Low altitude');
+				}
+				if (value > 80) {
+					console.log('WARNING: High altitude');
+				}
+			}
+			if (value > MODEL[landerProperty].max) {
+				if (landerProperty === 'thruster' || landerProperty === 'rotation') {
+					this.modelLander[landerProperty] = MODEL[landerProperty].max;
+				}
+			}
+			if (value < MODEL[landerProperty].min) {
+				if (landerProperty === 'thruster' || landerProperty === 'rotation') {
+					this.modelLander[landerProperty] = MODEL[landerProperty].min;
+				}
+			}
+		}
+	}
+
 	handleGameStateKeyboardInupts(event) {
 		let keyName = event.key;
 
@@ -123,6 +156,7 @@ export default class GameEngine extends GameElement {
 			}
 		});
 
+		this.checkLimits();
 		this.#updateCustomProperties();
 	}
 

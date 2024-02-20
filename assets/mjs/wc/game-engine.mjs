@@ -1,5 +1,5 @@
 import GameElement from './game-element.mjs?date=2023-12-26';
-import { MODEL, KEYMAP } from './../model.mjs?date=2023-12-26';
+import { MODEL, KEYMAP, PARAMETERS } from './../model.mjs?date=2023-12-26';
 
 const keyboardEventsToWatch = ['keydown', 'keyup'];
 
@@ -14,6 +14,7 @@ export default class GameEngine extends GameElement {
 	#gameDuration = 0; // Counts the time elapsed based on multiples of `this.#gameEventFrequency`
 	#gameInterval; // Placeholder for window.setInterval so that it can be cleared later.
 	#keyMap = KEYMAP;
+	#limitsExceeded = false;
 
 	#gameRunningStateChanged = (runningState) => {
 		this.#gameRunning = runningState;
@@ -61,10 +62,13 @@ export default class GameEngine extends GameElement {
 	}
 
 	#updateCustomProperties() {
+		if (this.#limitsExceeded) {
+			console.log(this.modelLander);
+		}
 		Object.keys(this.modelLander).forEach(landerProperty => {
 			let value = this.modelLander[landerProperty];
 			this.style.setProperty(`--lander_${landerProperty}`, value);
-		})
+		});
 	}
 
 	constructor() {
@@ -100,22 +104,21 @@ export default class GameEngine extends GameElement {
 				}
 			}
 			if (landerProperty === 'position_y') {
-				if (value < 20) {
+				if (value <= MODEL[landerProperty].min || value >= MODEL[landerProperty].max) {
+					this.modelLander.signal = 0;
+					this.#limitsExceeded = true;
+					break;
+				} else if (value < 20) {
 					console.log('WARNING: Low altitude');
-				}
-				if (value > 80) {
+				} else if (value > 80) {
 					console.log('WARNING: High altitude');
 				}
 			}
-			if (value > MODEL[landerProperty].max) {
-				if (landerProperty === 'thruster' || landerProperty === 'rotation') {
-					this.modelLander[landerProperty] = MODEL[landerProperty].max;
-				}
+			if (value >= MODEL[landerProperty].max) {
+				this.modelLander[landerProperty] = MODEL[landerProperty].max;
 			}
-			if (value < MODEL[landerProperty].min) {
-				if (landerProperty === 'thruster' || landerProperty === 'rotation') {
-					this.modelLander[landerProperty] = MODEL[landerProperty].min;
-				}
+			if (value <= MODEL[landerProperty].min) {
+				this.modelLander[landerProperty] = MODEL[landerProperty].min;
 			}
 		}
 	}
@@ -143,6 +146,12 @@ export default class GameEngine extends GameElement {
 		}
 	}
 
+	updateLanderPosition() {
+		let newSpeed = parseFloat(this.modelLander.speed) + PARAMETERS.gravity - parseFloat(this.modelLander.thruster * 0.005);
+		this.modelLander.speed = newSpeed.toFixed(1);
+		this.modelLander.position_y = (parseFloat(this.modelLander.position_y) - newSpeed).toFixed(1);
+	}
+
 	gameLoop() {
 		// Increment game duration counter
 		this.#gameDuration = this.#gameDuration + this.#gameEventFrequency;
@@ -157,7 +166,9 @@ export default class GameEngine extends GameElement {
 		});
 
 		this.checkLimits();
+		this.updateLanderPosition();
 		this.#updateCustomProperties();
+		if (this.#limitsExceeded) this.#stopGame();
 	}
 
 	connectedCallback() {

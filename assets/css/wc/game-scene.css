@@ -1,8 +1,11 @@
 game-scene {
+	--surface-height: calc(10 * var(--unit_root));
+	
 	position: absolute;
 	inset: 0;
-	z-index: 1;
 	overflow: hidden;
-	background-color: hsl(0,0%,10%);
 	box-shadow: inset 0 0 10px 10px hsla(0,0%,0%,0.2);
 }
+
+game-scene lunar-space    {z-index: 2;}
+game-scene lunar-surface  {z-index: 1;}

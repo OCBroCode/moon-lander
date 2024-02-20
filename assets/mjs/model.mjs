@@ -8,7 +8,7 @@ export const MODEL = {
 	},
 	position_y: {
 		name: 'Y Position',
-		initial: 80,
+		initial: 90,
 		min: 0,
 		max: 100,
 		affects: 'lander',
@@ -27,11 +27,18 @@ export const MODEL = {
 		labelFalse: 'Stopped',
 		affects: 'game',
 	},
+	signal: {
+		name: 'Signal',
+		initial: 1,
+		min: 0,
+		max: 1,
+		affects: 'lander',
+	},
 	speed: {
 		name: 'Speed',
-		initial: 50,
-		min: 0,
-		max: 100,
+		initial: 0.1,
+		min: -5,
+		max: 5,
 		affects: 'lander',
 	},
 	thruster: {
@@ -65,3 +72,7 @@ export const KEYMAP = {
 		active: false,
 	},
 };
+
+export const PARAMETERS = {
+	gravity: 0.1,
+}

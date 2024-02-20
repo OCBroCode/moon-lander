@@ -15,3 +15,7 @@ system-notifications {
 .notification.error {
 	color: red;
 }
+
+#error-no-signal {
+	opacity: calc((var(--lander_signal) * -1) + 1);
+}

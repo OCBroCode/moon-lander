@@ -1,0 +1,6 @@
+lunar-space {
+	position: absolute;
+	inset: 0;
+	inset-block-end: var(--surface-height);
+	background-color: hsl(0,0%,10%);
+}

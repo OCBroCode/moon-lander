@@ -1,11 +1,12 @@
 import GameElement from './game-element.mjs?date=2023-12-26';
-import { MODEL, KEYMAP } from './../model.mjs?date=2023-12-26';
+import { MODEL, KEYMAP, PARAMETERS, INDICATORS } from './../model.mjs?date=2023-12-26';
 
 const keyboardEventsToWatch = ['keydown', 'keyup'];
 
 export default class GameEngine extends GameElement {
 
 	modelLander = {};
+	modelIndicators = {};
 
 	#gameRunning;
 	#gameStarted;
@@ -14,6 +15,7 @@ export default class GameEngine extends GameElement {
 	#gameDuration = 0; // Counts the time elapsed based on multiples of `this.#gameEventFrequency`
 	#gameInterval; // Placeholder for window.setInterval so that it can be cleared later.
 	#keyMap = KEYMAP;
+	#limitsExceeded = false;
 
 	#gameRunningStateChanged = (runningState) => {
 		this.#gameRunning = runningState;
@@ -64,7 +66,11 @@ export default class GameEngine extends GameElement {
 		Object.keys(this.modelLander).forEach(landerProperty => {
 			let value = this.modelLander[landerProperty];
 			this.style.setProperty(`--lander_${landerProperty}`, value);
-		})
+		});
+		Object.keys(this.modelIndicators).forEach(indicatorProperty => {
+			let value = this.modelIndicators[indicatorProperty];
+			this.style.setProperty(`--lander_${indicatorProperty}`, value);
+		});
 	}
 
 	constructor() {
@@ -83,6 +89,10 @@ export default class GameEngine extends GameElement {
 				this.modelLander[keyName] = currentItem.initial;
 			}
 		});
+		Object.keys(INDICATORS).forEach((keyName) => {
+			let currentItem = INDICATORS[keyName];
+			this.modelIndicators[keyName] = currentItem.initial;
+		});
 		this.#updateCustomProperties();
 		this.#startGame();
 	}
@@ -91,31 +101,42 @@ export default class GameEngine extends GameElement {
 		for (let [landerProperty, value] of Object.entries(this.modelLander)) {
 			if (landerProperty === 'position_x') {
 				if (value < 20 || value > 80) {
-					console.log('WARNING: Weak signal');
+					this.modelIndicators.signal_weak = 1;
+				} else {
+					this.modelIndicators.signal_weak = 0;
 				}
 			}
 			if (landerProperty === 'rotation') {
 				if (value < -75 || value > 75) {
-					console.log('WARNING: Rotation nearing limits');
+					this.modelIndicators.rotation_high = 1;
+				} else {
+					this.modelIndicators.rotation_high = 0;
+				}
+				if (value > -10 && value < 10) {
+					this.modelIndicators.rotation_good = 1;
+				} else {
+					this.modelIndicators.rotation_good = 0;
 				}
 			}
 			if (landerProperty === 'position_y') {
-				if (value < 20) {
-					console.log('WARNING: Low altitude');
-				}
-				if (value > 80) {
-					console.log('WARNING: High altitude');
+				if (value <= MODEL[landerProperty].min || value >= MODEL[landerProperty].max) {
+					this.modelIndicators.signal_lost = 1;
+					this.#limitsExceeded = true;
+					break;
+				} else if (value < 20) {
+					this.modelIndicators.altitude_low = 1;
+				} else if (value > 80) {
+					this.modelIndicators.altitude_high = 1;
+				} else {
+					this.modelIndicators.altitude_low = 0;
+					this.modelIndicators.altitude_high = 0;
 				}
 			}
-			if (value > MODEL[landerProperty].max) {
-				if (landerProperty === 'thruster' || landerProperty === 'rotation') {
-					this.modelLander[landerProperty] = MODEL[landerProperty].max;
-				}
+			if (value >= MODEL[landerProperty].max) {
+				this.modelLander[landerProperty] = MODEL[landerProperty].max;
 			}
-			if (value < MODEL[landerProperty].min) {
-				if (landerProperty === 'thruster' || landerProperty === 'rotation') {
-					this.modelLander[landerProperty] = MODEL[landerProperty].min;
-				}
+			if (value <= MODEL[landerProperty].min) {
+				this.modelLander[landerProperty] = MODEL[landerProperty].min;
 			}
 		}
 	}
@@ -143,6 +164,12 @@ export default class GameEngine extends GameElement {
 		}
 	}
 
+	updateLanderPosition() {
+		let newSpeed = parseFloat(this.modelLander.speed) + PARAMETERS.gravity - parseFloat(this.modelLander.thruster * 0.005);
+		this.modelLander.speed = newSpeed.toFixed(1);
+		this.modelLander.position_y = (parseFloat(this.modelLander.position_y) - newSpeed).toFixed(1);
+	}
+
 	gameLoop() {
 		// Increment game duration counter
 		this.#gameDuration = this.#gameDuration + this.#gameEventFrequency;
@@ -157,7 +184,9 @@ export default class GameEngine extends GameElement {
 		});
 
 		this.checkLimits();
+		this.updateLanderPosition();
 		this.#updateCustomProperties();
+		if (this.#limitsExceeded) this.#stopGame();
 	}
 
 	connectedCallback() {

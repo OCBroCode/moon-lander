@@ -1,17 +1,44 @@
 system-notifications {
-
+	display: flex;
+	gap: calc(0.5 * var(--unit_root));
 }
 
 .notification {
+	--notification-alpha: 0.1;
+
+	display: block;
 	text-transform: uppercase;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: var(--unit_root);
+	line-height: 1.25;
 	font-weight: 700;
-	opacity: 0;
+	inline-size: calc(2.5 * var(--unit_root));
+	block-size: calc(2.5 * var(--unit_root));
+	background-color: black;
+	padding: calc(0.25 * var(--unit_root));
+	text-align: center;
+	border-radius: calc(0.25 * var(--unit_root));
+	color: hsla(var(--notification-hue), 80%, 50%, var(--notification-alpha));
 }
 
 .notification.warning {
-	color: gold;
+	--notification-hue: 60deg;
 }
 
 .notification.error {
-	color: red;
+	--notification-hue: 0deg;
 }
+
+.notification.status {
+	--notification-hue: 120deg;
+}
+
+[data-property="signal_lost"]      {--notification-alpha: var(--lander_signal_lost);}
+[data-property="signal_weak"]      {--notification-alpha: var(--lander_signal_weak);}
+[data-property="altitude_low"]     {--notification-alpha: var(--lander_altitude_low);}
+[data-property="altitude_high"]    {--notification-alpha: var(--lander_altitude_high);}
+[data-property="gear_down"]        {--notification-alpha: var(--lander_gear_down);}
+[data-property="rotation_high"]    {--notification-alpha: var(--lander_rotation_high);}
+[data-property="rotation_good"]    {--notification-alpha: var(--lander_rotation_good);}
+[data-property="fuel_low"]         {--notification-alpha: var(--lander_fuel_low);}
+[data-property="fuel_zero"]        {--notification-alpha: var(--lander_fuel_zero);}

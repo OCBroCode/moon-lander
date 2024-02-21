@@ -1,7 +1,7 @@
 lunar-surface {
 	display: block;
-	block-size: calc(10 * var(--unit_root));
 	position: absolute;
+	block-size: var(--surface-height);
 	inset-block-end: 0;
 	inset-inline-start: 0;
 	inset-inline-end: 0;

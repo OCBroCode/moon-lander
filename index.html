@@ -25,9 +25,15 @@
 	<game-instruments>
 		<instrument-dock position="top-center">
 			<system-notifications>
-				<span id="warning-low-altitude" class="notification warning">Low altitude</span>
-				<span id="warning-signal-weak" class="notification warning">Weak signal</span>
-				<span id="error-no-signal" class="notification error">Signal lost</span>
+				<span data-property="altitude_high" class="notification warning">HIGH ALT</span>
+				<span data-property="altitude_low" class="notification warning">LOW ALT</span>
+				<span data-property="signal_weak" class="notification warning">WEAK SGNL</span>
+				<span data-property="signal_lost" class="notification error">SGNL LOST</span>
+				<span data-property="gear_down" class="notification status">GEAR DOWN</span>
+				<span data-property="rotation_high" class="notification warning">RTTN HIGH</span>
+				<span data-property="rotation_good" class="notification status">RTTN GOOD</span>
+				<span data-property="fuel_low" class="notification warning">FUEL LOW</span>
+				<span data-property="fuel_zero" class="notification error">FUEL ZERO</span>
 			</system-notifications>
 		</instrument-dock>
 		<instrument-dock position="bottom-left">

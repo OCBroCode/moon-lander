@@ -1,11 +1,12 @@
 import GameElement from './game-element.mjs?date=2023-12-26';
-import { MODEL, KEYMAP, PARAMETERS } from './../model.mjs?date=2023-12-26';
+import { MODEL, KEYMAP, PARAMETERS, INDICATORS } from './../model.mjs?date=2023-12-26';
 
 const keyboardEventsToWatch = ['keydown', 'keyup'];
 
 export default class GameEngine extends GameElement {
 
 	modelLander = {};
+	modelIndicators = {};
 
 	#gameRunning;
 	#gameStarted;
@@ -62,12 +63,13 @@ export default class GameEngine extends GameElement {
 	}
 
 	#updateCustomProperties() {
-		if (this.#limitsExceeded) {
-			console.log(this.modelLander);
-		}
 		Object.keys(this.modelLander).forEach(landerProperty => {
 			let value = this.modelLander[landerProperty];
 			this.style.setProperty(`--lander_${landerProperty}`, value);
+		});
+		Object.keys(this.modelIndicators).forEach(indicatorProperty => {
+			let value = this.modelIndicators[indicatorProperty];
+			this.style.setProperty(`--lander_${indicatorProperty}`, value);
 		});
 	}
 
@@ -87,6 +89,10 @@ export default class GameEngine extends GameElement {
 				this.modelLander[keyName] = currentItem.initial;
 			}
 		});
+		Object.keys(INDICATORS).forEach((keyName) => {
+			let currentItem = INDICATORS[keyName];
+			this.modelIndicators[keyName] = currentItem.initial;
+		});
 		this.#updateCustomProperties();
 		this.#startGame();
 	}
@@ -95,23 +101,35 @@ export default class GameEngine extends GameElement {
 		for (let [landerProperty, value] of Object.entries(this.modelLander)) {
 			if (landerProperty === 'position_x') {
 				if (value < 20 || value > 80) {
-					console.log('WARNING: Weak signal');
+					this.modelIndicators.signal_weak = 1;
+				} else {
+					this.modelIndicators.signal_weak = 0;
 				}
 			}
 			if (landerProperty === 'rotation') {
 				if (value < -75 || value > 75) {
-					console.log('WARNING: Rotation nearing limits');
+					this.modelIndicators.rotation_high = 1;
+				} else {
+					this.modelIndicators.rotation_high = 0;
+				}
+				if (value > -10 && value < 10) {
+					this.modelIndicators.rotation_good = 1;
+				} else {
+					this.modelIndicators.rotation_good = 0;
 				}
 			}
 			if (landerProperty === 'position_y') {
 				if (value <= MODEL[landerProperty].min || value >= MODEL[landerProperty].max) {
-					this.modelLander.signal = 0;
+					this.modelIndicators.signal_lost = 1;
 					this.#limitsExceeded = true;
 					break;
 				} else if (value < 20) {
-					console.log('WARNING: Low altitude');
+					this.modelIndicators.altitude_low = 1;
 				} else if (value > 80) {
-					console.log('WARNING: High altitude');
+					this.modelIndicators.altitude_high = 1;
+				} else {
+					this.modelIndicators.altitude_low = 0;
+					this.modelIndicators.altitude_high = 0;
 				}
 			}
 			if (value >= MODEL[landerProperty].max) {

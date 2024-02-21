@@ -1,4 +1,11 @@
 export const MODEL = {
+	fuel: {
+		name: 'Fuel',
+		initial: 100,
+		min: 0,
+		max: 100,
+		affects: 'lander',
+	},
 	position_x: {
 		name: 'X Position',
 		initial: 50,
@@ -27,13 +34,6 @@ export const MODEL = {
 		labelFalse: 'Stopped',
 		affects: 'game',
 	},
-	signal: {
-		name: 'Signal',
-		initial: 1,
-		min: 0,
-		max: 1,
-		affects: 'lander',
-	},
 	speed: {
 		name: 'Speed',
 		initial: 0.1,
@@ -49,6 +49,63 @@ export const MODEL = {
 		affects: 'lander',
 	},
 };
+
+export const INDICATORS = {
+	altitude_low: {
+		name: 'Altitude low',
+		initial: 0,
+		min: 0,
+		max: 1,
+	},
+	altitude_high: {
+		name: 'Altitude high',
+		initial: 0,
+		min: 0,
+		max: 1,
+	},
+	fuel_low: {
+		name: 'Fuel low',
+		initial: 0,
+		min: 0,
+		max: 1,
+	},
+	fuel_zero: {
+		name: 'Fuel zero',
+		initial: 0,
+		min: 0,
+		max: 1,
+	},
+	gear_down: {
+		name: 'Gear down',
+		initial: 0,
+		min: 0,
+		max: 1,
+	},
+	rotation_high: {
+		name: 'Rotation high',
+		initial: 0,
+		min: 0,
+		max: 1,
+	},
+	rotation_good: {
+		name: 'Rotation nominal',
+		initial: 1,
+		min: 0,
+		max: 1,
+	},
+	signal_lost: {
+		name: 'Signal lost',
+		initial: 0,
+		min: 0,
+		max: 1,
+	},
+	signal_weak: {
+		name: 'Signal weak',
+		initial: 0,
+		min: 0,
+		max: 1,
+	},
+}
 
 export const KEYMAP = {
 	'ArrowUp': {

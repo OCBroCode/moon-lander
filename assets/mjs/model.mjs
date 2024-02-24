@@ -1,4 +1,11 @@
 export const MODEL = {
+	altitude: {
+		name: 'Altitude',
+		initial: 10_000,
+		min: 0,
+		max: 11_0000,
+		affects: 'lander',
+	},
 	fuel: {
 		name: 'Fuel',
 		initial: 100,
@@ -23,8 +30,15 @@ export const MODEL = {
 	rotation: {
 		name: 'Rotation',
 		initial: 0,
-		min: -90,
-		max: 90,
+		min: 0,
+		max: 360,
+		affects: 'lander',
+	},
+	rotational_speed: {
+		name: 'Rotational speed',
+		initial: 0,
+		min: -10,
+		max: 10,
 		affects: 'lander',
 	},
 	running: {
@@ -37,8 +51,8 @@ export const MODEL = {
 	speed: {
 		name: 'Speed',
 		initial: 0.1,
-		min: -5,
-		max: 5,
+		min: -1,
+		max: 1,
 		affects: 'lander',
 	},
 	thruster: {
@@ -110,26 +124,26 @@ export const INDICATORS = {
 export const KEYMAP = {
 	'ArrowUp': {
 		affects: 'thruster',
-		change: 5,
+		change: 2,
 		active: false,
 	},
 	'ArrowDown': {
 		affects: 'thruster',
-		change: -5,
+		change: -2,
 		active: false,
 	},
 	'ArrowLeft': {
-		affects: 'rotation',
-		change: -5,
+		affects: 'rotational_speed',
+		change: -0.1,
 		active: false,
 	},
 	'ArrowRight': {
-		affects: 'rotation',
-		change: 5,
+		affects: 'rotational_speed',
+		change: 0.1,
 		active: false,
 	},
 };
 
 export const PARAMETERS = {
-	gravity: 0.1,
+	gravity: 0.25,
 }

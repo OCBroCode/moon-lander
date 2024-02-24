@@ -1,16 +1,17 @@
 lander-vehicle {
+	--lander-altitude: calc(var(--lander_position_y) * 1%);
+	--lander-scale: calc(1 - (var(--lander_position_y) / 100));
+
 	display: block;
 	position: absolute;
-	inset-block-end: calc(var(--lander_position_y) * 1%);
+	inset-block-end: var(--lander-altitude);
 	inset-inline-start: calc(var(--lander_position_x) * 1%);
 	inline-size: calc(5 * var(--unit_root));
 	block-size: calc(4 * var(--unit_root));
 	transform-origin: 50% 50%;
-	transition-property: transform, inset-block-end, inset-inline-start;
-	transition-duration: 0.05s;
-	transition-timing-function: linear;
 	transform:
-		translate(-50%, -50%)
+		translateX(-50%)
+		scale(var(--lander-scale), var(--lander-scale))
 		rotate(
 			calc(var(--lander_rotation) * 1deg)
 		);

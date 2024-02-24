@@ -11,11 +11,15 @@ export default class GameEngine extends GameElement {
 	#gameRunning;
 	#gameStarted;
 	#gameEnded;
-	#gameEventFrequency = 50; // Milliseconds
-	#gameDuration = 0; // Counts the time elapsed based on multiples of `this.#gameEventFrequency`
-	#gameInterval; // Placeholder for window.setInterval so that it can be cleared later.
+	#timers = {
+		gameTimeStart: 0,
+		elapsedTime: 0,
+		currentTime: 0,
+	};
 	#keyMap = KEYMAP;
 	#limitsExceeded = false;
+	#animationRef;
+	#landerElem;
 
 	#gameRunningStateChanged = (runningState) => {
 		this.#gameRunning = runningState;
@@ -25,29 +29,29 @@ export default class GameEngine extends GameElement {
 		this.#gameStarted = true;
 		this.#gameRunningStateChanged(true);
 		this.#addLanderKeyboardHandlers();
-		this.#gameDuration = 0;
-		this.#gameInterval = window.setInterval(this.gameLoop, this.#gameEventFrequency);
+		this.#timers.gameTimeStart = performance.now();
+		this.#animationRef = requestAnimationFrame(this.gameLoop);
 	}
 
 	#unpauseGame() {
 		if (!this.#gameRunning) {
 			this.#addLanderKeyboardHandlers();
 			this.#gameRunningStateChanged(true);
-			this.#gameInterval = window.setInterval(this.gameLoop, this.#gameEventFrequency);
+			this.#animationRef = requestAnimationFrame(this.gameLoop);
 		}
 	}
 
 	#pauseGame() {
 		this.#gameRunningStateChanged(false);
 		this.#removeLanderKeyboardHandlers();
-		window.clearInterval(this.#gameInterval);
+		cancelAnimationFrame(this.#animationRef);
 	}
 
 	#stopGame() {
 		this.#gameEnded = true;
-		console.log('Game ended after duration', this.#gameDuration);
+		console.log('Game ended after duration', performance.now() - this.#timers.gameTimeStart);
 		this.#removeLanderKeyboardHandlers();
-		window.clearInterval(this.#gameInterval);
+		cancelAnimationFrame(this.#animationRef);
 	}
 
 	#addLanderKeyboardHandlers() {
@@ -93,6 +97,7 @@ export default class GameEngine extends GameElement {
 			let currentItem = INDICATORS[keyName];
 			this.modelIndicators[keyName] = currentItem.initial;
 		});
+		this.#landerElem = this.querySelector('lander-vehicle');
 		this.#updateCustomProperties();
 		this.#startGame();
 	}
@@ -143,7 +148,7 @@ export default class GameEngine extends GameElement {
 
 	handleGameStateKeyboardInupts(event) {
 		let keyName = event.key;
-
+		
 		if (keyName == 'Enter') {
 			if (this.#gameStarted && !this.#gameRunning) {
 				this.#unpauseGame();
@@ -165,14 +170,21 @@ export default class GameEngine extends GameElement {
 	}
 
 	updateLanderPosition() {
-		let newSpeed = parseFloat(this.modelLander.speed) + PARAMETERS.gravity - parseFloat(this.modelLander.thruster * 0.005);
-		this.modelLander.speed = newSpeed.toFixed(1);
-		this.modelLander.position_y = (parseFloat(this.modelLander.position_y) - newSpeed).toFixed(1);
+		// let timeSinceLastPosition = this.#timers.elapsedTime;
+
+		// let newSpeed = parseFloat(this.modelLander.speed) + PARAMETERS.gravity - parseFloat(this.modelLander.thruster * 0.005);
+		// this.modelLander.speed = newSpeed.toFixed(1);
+
+		let newYPosition = parseFloat(this.modelLander.position_y - PARAMETERS.gravity + (this.modelLander.thruster * 0.005)).toFixed(2);
+
+		// this.modelLander.thruster @ 50% = counters gravity @ 0.25
+		this.modelLander.position_y = newYPosition;
+		// this.modelLander.rotation = this.modelLander.rotation + this.modelLander.rotational_speed;
 	}
 
 	gameLoop() {
-		// Increment game duration counter
-		this.#gameDuration = this.#gameDuration + this.#gameEventFrequency;
+		this.#timers.elapsedTime = performance.now() - this.#timers.currentTime;
+		this.#timers.currentTime = performance.now();
 
 		// Go through the batched inputs and change the lander's position
 		Object.keys(this.#keyMap).forEach(keyName => {
@@ -186,7 +198,12 @@ export default class GameEngine extends GameElement {
 		this.checkLimits();
 		this.updateLanderPosition();
 		this.#updateCustomProperties();
-		if (this.#limitsExceeded) this.#stopGame();
+
+		if (this.#limitsExceeded) {
+			this.#stopGame();
+		} else {
+			this.#animationRef = requestAnimationFrame(this.gameLoop);
+		}
 	}
 
 	connectedCallback() {

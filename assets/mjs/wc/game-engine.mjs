@@ -75,6 +75,9 @@ export default class GameEngine extends GameElement {
 			let value = this.modelIndicators[indicatorProperty];
 			this.style.setProperty(`--lander_${indicatorProperty}`, value);
 		});
+		
+		let scaledSurfaceRadius = 10_000 - (this.modelLander.position_y * this.modelLander.position_y);
+		this.style.setProperty(`--surface-radius`, scaledSurfaceRadius);
 	}
 
 	constructor() {

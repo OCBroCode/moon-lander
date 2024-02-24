@@ -5,6 +5,8 @@ game-scene {
 	inset: 0;
 	overflow: hidden;
 	box-shadow: inset 0 0 10px 10px hsla(0,0%,0%,0.2);
+	block-size: 100%;
+	background-color: hsl(0,0%,10%);
 }
 
 game-scene lunar-space    {z-index: 2;}

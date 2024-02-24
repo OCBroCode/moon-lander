@@ -1,13 +1,22 @@
 lunar-surface {
 	display: block;
 	position: absolute;
-	block-size: var(--surface-height);
-	inset-block-end: 0;
-	inset-inline-start: 0;
+	min-inline-size: 5%;
+	min-block-size: 5%;
+	inline-size: calc(var(--surface-radius) * 1%);
+	block-size: calc(var(--surface-radius) * 1%);
+	max-inline-size: 50000%;
+	max-block-size: 50000%;
+	inset-block-start: calc(100% - var(--surface-height));
+	inset-inline-start: 50%;
 	inset-inline-end: 0;
   background-color: hsl(32, 85%, 17%);
 	background-image: linear-gradient(
 		hsla(0, 0%, 20%, 0.2),
 		hsla(0, 0%, 10%, 0.2) 50%
-	);
+		);
+	border-radius: 50%;
+	transform: translateX(-50%);
+	transition-property: block-size, inline-size;
+	transition-duration: 1000ms;
 }

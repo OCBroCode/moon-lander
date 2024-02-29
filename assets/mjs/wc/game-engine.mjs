@@ -20,6 +20,7 @@ export default class GameEngine extends GameElement {
 	#limitsExceeded = false;
 	#animationRef;
 	#landerElem;
+	#soundsElem;
 
 	#gameRunningStateChanged = (runningState) => {
 		this.#gameRunning = runningState;
@@ -80,13 +81,22 @@ export default class GameEngine extends GameElement {
 		this.style.setProperty(`--surface-radius`, scaledSurfaceRadius);
 	}
 
+	#playSounds() {
+		if (this.modelLander.thruster > 0) {
+			let normalisedVolume = this.modelLander.thruster / 50;
+			this.#soundsElem.playSound('booster', normalisedVolume);
+		}
+	}
+
 	constructor() {
 		super();
 
+		this.#soundsElem = this.querySelector('game-sounds');
 		this.handleGameStateKeyboardInupts = this.handleGameStateKeyboardInupts.bind(this);
 		this.handleLanderKeyboardInupts = this.handleLanderKeyboardInupts.bind(this);
 		this.setInitialValuesAndStart = this.setInitialValuesAndStart.bind(this);
 		this.gameLoop = this.gameLoop.bind(this);
+		
 	}
 
 	setInitialValuesAndStart() {
@@ -166,9 +176,9 @@ export default class GameEngine extends GameElement {
 	handleLanderKeyboardInupts(event) {
 		let keyName = event.key;
 		let eventType = event.type;
-
-		if (this.#keyMap[keyName]) {
-			this.#keyMap[keyName].active = (eventType === 'keydown') ? true : false;
+		let item = this.#keyMap[keyName];
+		if (item) {
+			item.active = (eventType === 'keydown') ? true : false;
 		}
 	}
 
@@ -201,6 +211,7 @@ export default class GameEngine extends GameElement {
 		this.checkLimits();
 		this.updateLanderPosition();
 		this.#updateCustomProperties();
+		this.#playSounds();
 
 		if (this.#limitsExceeded) {
 			this.#stopGame();

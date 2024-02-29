@@ -178,13 +178,8 @@ export default class GameEngine extends GameElement {
 		let eventType = event.type;
 		let item = this.#keyMap[keyName];
 		if (item) {
-			if (eventType === 'keydown') {
-				item.active = true;
-			} else {
-				item.active = false;
-			}
+			item.active = (eventType === 'keydown') ? true : false;
 		}
-
 	}
 
 	updateLanderPosition() {

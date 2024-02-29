@@ -83,7 +83,7 @@ export default class GameEngine extends GameElement {
 
 	#playSounds() {
 		if (this.modelLander.thruster > 0) {
-			let normalisedVolume = this.modelLander.thruster / 50;
+			let normalisedVolume = this.modelLander.thruster / 100;
 			this.#soundsElem.playSound('booster', normalisedVolume);
 		}
 	}

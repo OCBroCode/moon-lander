@@ -27,7 +27,7 @@ export default class GameSounds extends GameElement {
 		if (volume >= 0 && volume <= 2) {
 			this.#audioGain.gain.value = volume;
 		} else {
-			this.#audioGain.gain.value = 1; // Set to 50% / normal volume
+			this.#audioGain.gain.value = 0.5; // Set to 50% / normal volume
 		}
 
 		this.querySelector(`[data-sound-id="${soundId}"]`).play();

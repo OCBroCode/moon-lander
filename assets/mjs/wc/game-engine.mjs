@@ -2,6 +2,8 @@ import GameElement from './game-element.mjs?date=2023-12-26';
 import { MODEL, KEYMAP, PARAMETERS, INDICATORS } from './../model.mjs?date=2023-12-26';
 
 const keyboardEventsToWatch = ['keydown', 'keyup'];
+const positiveInputEventsToWatch = ['mousedown', 'touchstart'];
+const negativeInputEventsToWatch = ['mouseup', 'touchend'];
 
 export default class GameEngine extends GameElement {
 
@@ -31,16 +33,14 @@ export default class GameEngine extends GameElement {
 	#startGame() {
 		this.#gameStarted = true;
 		this.#gameRunningStateChanged(true);
-		this.#addLanderKeyboardHandlers();
-		this.addEventListener('mousedown', this.#addBoost);
-		this.addEventListener('mouseup', this.#removeBoost);
+		this.#addInputHandlers();
 		this.#timers.gameTimeStart = performance.now();
 		this.#animationRef = requestAnimationFrame(this.gameLoop);
 	}
 
 	#unpauseGame() {
 		if (!this.#gameRunning) {
-			this.#addLanderKeyboardHandlers();
+			this.#addInputHandlers();
 			this.#gameRunningStateChanged(true);
 			this.#animationRef = requestAnimationFrame(this.gameLoop);
 		}
@@ -48,26 +48,36 @@ export default class GameEngine extends GameElement {
 
 	#pauseGame() {
 		this.#gameRunningStateChanged(false);
-		this.#removeLanderKeyboardHandlers();
+		this.#removeInputHandlers();
 		cancelAnimationFrame(this.#animationRef);
 	}
 
 	#stopGame() {
 		this.#gameEnded = true;
 		console.log('Game ended after duration', performance.now() - this.#timers.gameTimeStart);
-		this.#removeLanderKeyboardHandlers();
-		this.removeEventListener('mousedown', this.#addBoost);
-		this.removeEventListener('mouseup', this.#removeBoost);
+		this.#removeInputHandlers();
 		cancelAnimationFrame(this.#animationRef);
 	}
 
-	#addLanderKeyboardHandlers() {
+	#addInputHandlers() {
+		positiveInputEventsToWatch.forEach(eventName => {
+			this.addEventListener(eventName, this.addBoost);
+		});
+		negativeInputEventsToWatch.forEach(eventName => {
+			this.addEventListener(eventName, this.removeBoost);
+		});
 		keyboardEventsToWatch.forEach(eventName => {
 			document.addEventListener(eventName, this.handleLanderKeyboardInupts);
 		});
 	}
 
-	#removeLanderKeyboardHandlers() {
+	#removeInputHandlers() {
+		positiveInputEventsToWatch.forEach(eventName => {
+			this.removeEventListener(eventName, this.addBoost);
+		});
+		negativeInputEventsToWatch.forEach(eventName => {
+			this.removeEventListener(eventName, this.removeBoost);
+		});
 		keyboardEventsToWatch.forEach(eventName => {
 			document.removeEventListener(eventName, this.handleLanderKeyboardInupts);
 		});
@@ -94,12 +104,12 @@ export default class GameEngine extends GameElement {
 		}
 	}
 
-	#addBoost() {
+	addBoost() {
 		this.#manualControl = true;
 		this.#autoThrust = true;
 	}
 
-	#removeBoost() {
+	removeBoost() {
 		this.#autoThrust = false;
 	}
 
@@ -110,8 +120,9 @@ export default class GameEngine extends GameElement {
 		this.handleGameStateKeyboardInupts = this.handleGameStateKeyboardInupts.bind(this);
 		this.handleLanderKeyboardInupts = this.handleLanderKeyboardInupts.bind(this);
 		this.setInitialValuesAndStart = this.setInitialValuesAndStart.bind(this);
+		this.addBoost = this.addBoost.bind(this);
+		this.removeBoost = this.removeBoost.bind(this);
 		this.gameLoop = this.gameLoop.bind(this);
-		
 	}
 
 	setInitialValuesAndStart() {
@@ -189,6 +200,7 @@ export default class GameEngine extends GameElement {
 	}
 
 	handleLanderKeyboardInupts(event) {
+		this.#manualControl = false;
 		let keyName = event.key;
 		let eventType = event.type;
 		let item = this.#keyMap[keyName];

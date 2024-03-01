@@ -5,7 +5,6 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 export default class GameSounds extends GameElement {
 	sounds = {
 		booster: null,
-		thruster: null,
 	};
 	#audioCtx = new AudioContext();
 	#audioGain = this.#audioCtx.createGain();

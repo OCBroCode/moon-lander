@@ -1,15 +1,15 @@
 /*
 	See `lander-instrument.css` for global styles
 */
-lander-instrument[property="thruster"] {
+lander-instrument[property="booster"] {
 	inline-size: calc(4 * var(--unit_root));
 	block-size: calc(10 * var(--unit_root));
 	background-image: linear-gradient(hsl(0deg, 100%, 50%), hsl(40deg, 100%, 50%));
 	background-clip: content-box;
 }
 
-lander-instrument[property="thruster"] instrument-amount {
-	inset-block-end: calc(var(--lander_thruster) * 1%);
+lander-instrument[property="booster"] instrument-amount {
+	inset-block-end: calc(var(--lander_booster) * 1%);
 	transition-property: inset-block-end;
 	transition-duration: 0.05s;
 	transition-timing-function: linear;

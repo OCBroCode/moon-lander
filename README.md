@@ -21,7 +21,7 @@ Each interval:
 
 	- Get current Y position
 	- Get current speed
-	- Get current thruster amount
+	- Get current booster amount
 	- Apply gravity
 	- Take speed and divide by interval to get new distance
 	- Set new current Y position

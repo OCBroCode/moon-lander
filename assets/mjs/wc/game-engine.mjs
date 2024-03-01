@@ -11,6 +11,8 @@ export default class GameEngine extends GameElement {
 	#gameRunning;
 	#gameStarted;
 	#gameEnded;
+	#manualControl = false;
+	#autoThrust = false;
 	#timers = {
 		gameTimeStart: 0,
 		elapsedTime: 0,
@@ -30,6 +32,8 @@ export default class GameEngine extends GameElement {
 		this.#gameStarted = true;
 		this.#gameRunningStateChanged(true);
 		this.#addLanderKeyboardHandlers();
+		this.addEventListener('mousedown', this.#addBoost);
+		this.addEventListener('mouseup', this.#removeBoost);
 		this.#timers.gameTimeStart = performance.now();
 		this.#animationRef = requestAnimationFrame(this.gameLoop);
 	}
@@ -52,6 +56,8 @@ export default class GameEngine extends GameElement {
 		this.#gameEnded = true;
 		console.log('Game ended after duration', performance.now() - this.#timers.gameTimeStart);
 		this.#removeLanderKeyboardHandlers();
+		this.removeEventListener('mousedown', this.#addBoost);
+		this.removeEventListener('mouseup', this.#removeBoost);
 		cancelAnimationFrame(this.#animationRef);
 	}
 
@@ -82,10 +88,19 @@ export default class GameEngine extends GameElement {
 	}
 
 	#playSounds() {
-		if (this.modelLander.thruster > 0) {
-			let normalisedVolume = this.modelLander.thruster / 100;
+		if (this.modelLander.booster > 0) {
+			let normalisedVolume = this.modelLander.booster / 100;
 			this.#soundsElem.playSound('booster', normalisedVolume);
 		}
+	}
+
+	#addBoost() {
+		this.#manualControl = true;
+		this.#autoThrust = true;
+	}
+
+	#removeBoost() {
+		this.#autoThrust = false;
 	}
 
 	constructor() {
@@ -185,12 +200,12 @@ export default class GameEngine extends GameElement {
 	updateLanderPosition() {
 		// let timeSinceLastPosition = this.#timers.elapsedTime;
 
-		// let newSpeed = parseFloat(this.modelLander.speed) + PARAMETERS.gravity - parseFloat(this.modelLander.thruster * 0.005);
+		// let newSpeed = parseFloat(this.modelLander.speed) + PARAMETERS.gravity - parseFloat(this.modelLander.booster * 0.005);
 		// this.modelLander.speed = newSpeed.toFixed(1);
 
-		let newYPosition = parseFloat(this.modelLander.position_y - PARAMETERS.gravity + (this.modelLander.thruster * 0.005)).toFixed(2);
+		let newYPosition = parseFloat(this.modelLander.position_y - PARAMETERS.gravity + (this.modelLander.booster * 0.005)).toFixed(2);
 
-		// this.modelLander.thruster @ 50% = counters gravity @ 0.25
+		// this.modelLander.booster @ 50% = counters gravity @ 0.25
 		this.modelLander.position_y = newYPosition;
 		// this.modelLander.rotation = this.modelLander.rotation + this.modelLander.rotational_speed;
 	}
@@ -207,6 +222,11 @@ export default class GameEngine extends GameElement {
 				this.modelLander[landerProperty] = this.modelLander[landerProperty] + keyItem.change;
 			}
 		});
+
+		if (this.#manualControl) {
+			this.modelLander.booster = this.modelLander.booster + ((this.#autoThrust) ? 5 : -5);
+		}
+		
 
 		this.checkLimits();
 		this.updateLanderPosition();

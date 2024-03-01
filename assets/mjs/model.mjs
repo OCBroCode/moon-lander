@@ -55,8 +55,8 @@ export const MODEL = {
 		max: 1,
 		affects: 'lander',
 	},
-	thruster: {
-		name: 'Thruster',
+	booster: {
+		name: 'Main booster',
 		initial: 0,
 		min: 0,
 		max: 100,
@@ -123,12 +123,12 @@ export const INDICATORS = {
 
 export const KEYMAP = {
 	'ArrowUp': {
-		affects: 'thruster',
+		affects: 'booster',
 		change: 2,
 		active: false,
 	},
 	'ArrowDown': {
-		affects: 'thruster',
+		affects: 'booster',
 		change: -2,
 		active: false,
 	},

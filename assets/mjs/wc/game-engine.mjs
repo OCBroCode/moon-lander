@@ -24,7 +24,9 @@ export default class GameEngine extends GameElement {
 	#limitsExceeded = false;
 	#animationRef;
 	#landerElem;
+	#instrumentElem;
 	#soundsElem;
+	#landingInitiated = false;
 
 	#gameRunningStateChanged = (runningState) => {
 		this.#gameRunning = runningState;
@@ -90,7 +92,7 @@ export default class GameEngine extends GameElement {
 		});
 		Object.keys(this.modelIndicators).forEach(indicatorProperty => {
 			let value = this.modelIndicators[indicatorProperty];
-			this.style.setProperty(`--lander_${indicatorProperty}`, value);
+			this.#instrumentElem.style.setProperty(`--indicator_${indicatorProperty}`, value);
 		});
 		
 		let scaledSurfaceRadius = 10_000 - (this.modelLander.position_y * this.modelLander.position_y);
@@ -137,6 +139,7 @@ export default class GameEngine extends GameElement {
 			this.modelIndicators[keyName] = currentItem.initial;
 		});
 		this.#landerElem = this.querySelector('lander-vehicle');
+		this.#instrumentElem = this.querySelector('game-instruments');
 		this.#updateCustomProperties();
 		this.#startGame();
 	}
@@ -169,11 +172,20 @@ export default class GameEngine extends GameElement {
 					break;
 				} else if (value < 20) {
 					this.modelIndicators.altitude_low = 1;
+					if (this.#landingInitiated === false) {
+						this.#landingInitiated = true;
+						this.#landerElem.deployLandingGear(true);
+					}
 				} else if (value > 80) {
 					this.modelIndicators.altitude_high = 1;
 				} else {
 					this.modelIndicators.altitude_low = 0;
 					this.modelIndicators.altitude_high = 0;
+
+					if (this.#landingInitiated === true) {
+						this.#landingInitiated = false;
+						this.#landerElem.deployLandingGear(false);
+					}
 				}
 			}
 			if (value >= MODEL[landerProperty].max) {
@@ -229,7 +241,7 @@ export default class GameEngine extends GameElement {
 		Object.keys(this.#keyMap).forEach(keyName => {
 			let keyItem = this.#keyMap[keyName];
 			let landerProperty = keyItem.affects;
-			
+
 			if (keyItem.active) {
 				this.modelLander[landerProperty] = this.modelLander[landerProperty] + keyItem.change;
 			}
@@ -239,14 +251,16 @@ export default class GameEngine extends GameElement {
 			this.modelLander.booster = this.modelLander.booster + ((this.#autoThrust) ? 5 : -5);
 		}
 		
-
-		this.checkLimits();
+		
 		this.updateLanderPosition();
+		this.checkLimits();
 		this.#updateCustomProperties();
 		this.#playSounds();
 
 		if (this.#limitsExceeded) {
 			this.#stopGame();
+			this.modelLander.booster = 0;
+			this.#updateCustomProperties();
 		} else {
 			this.#animationRef = requestAnimationFrame(this.gameLoop);
 		}

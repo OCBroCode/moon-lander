@@ -32,14 +32,14 @@ lander-vehicle #leg-right {
 	transform-origin: 100% 25%;
 }
 
-lander-vehicle [data-gear-mode="flight"] #leg-left {
+lander-vehicle[gear-mode="flight"] #leg-left {
 	transform: rotate(-20deg);
 }
 
-lander-vehicle [data-gear-mode="flight"] #leg-right {
+lander-vehicle[gear-mode="flight"] #leg-right {
 	transform: rotate(20deg);
 }
 
-lander-vehicle [data-gear-mode="flight"] #leg-front {
+lander-vehicle[gear-mode="flight"] #leg-front {
 	transform: translateY(-8%);
 }

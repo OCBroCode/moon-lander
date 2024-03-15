@@ -33,12 +33,12 @@ system-notifications {
 	--notification-hue: 120deg;
 }
 
-[data-property="signal_lost"]      {--notification-alpha: var(--lander_signal_lost);}
-[data-property="signal_weak"]      {--notification-alpha: var(--lander_signal_weak);}
-[data-property="altitude_low"]     {--notification-alpha: var(--lander_altitude_low);}
-[data-property="altitude_high"]    {--notification-alpha: var(--lander_altitude_high);}
-[data-property="gear_down"]        {--notification-alpha: var(--lander_gear_down);}
-[data-property="rotation_high"]    {--notification-alpha: var(--lander_rotation_high);}
-[data-property="rotation_good"]    {--notification-alpha: var(--lander_rotation_good);}
-[data-property="fuel_low"]         {--notification-alpha: var(--lander_fuel_low);}
-[data-property="fuel_zero"]        {--notification-alpha: var(--lander_fuel_zero);}
+[data-property="signal_lost"]      {--notification-alpha: var(--indicator_signal_lost);}
+[data-property="signal_weak"]      {--notification-alpha: var(--indicator_signal_weak);}
+[data-property="altitude_low"]     {--notification-alpha: var(--indicator_altitude_low);}
+[data-property="altitude_high"]    {--notification-alpha: var(--indicator_altitude_high);}
+[data-property="gear_down"]        {--notification-alpha: var(--indicator_gear_down);}
+[data-property="rotation_high"]    {--notification-alpha: var(--indicator_rotation_high);}
+[data-property="rotation_good"]    {--notification-alpha: var(--indicator_rotation_good);}
+[data-property="fuel_low"]         {--notification-alpha: var(--indicator_fuel_low);}
+[data-property="fuel_zero"]        {--notification-alpha: var(--indicator_fuel_zero);}

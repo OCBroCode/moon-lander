@@ -200,12 +200,11 @@ export default class GameEngine extends GameElement {
 	}
 
 	handleLanderKeyboardInupts(event) {
-		this.#manualControl = false;
-		let keyName = event.key;
-		let eventType = event.type;
-		let item = this.#keyMap[keyName];
+		let item = this.#keyMap[event.key];
+
 		if (item) {
-			item.active = (eventType === 'keydown') ? true : false;
+			this.#manualControl = false;
+			item.active = (event.type === 'keydown') ? true : false;
 		}
 	}
 
@@ -229,7 +228,8 @@ export default class GameEngine extends GameElement {
 		// Go through the batched inputs and change the lander's position
 		Object.keys(this.#keyMap).forEach(keyName => {
 			let keyItem = this.#keyMap[keyName];
-			let landerProperty = this.#keyMap[keyName].affects;
+			let landerProperty = keyItem.affects;
+			
 			if (keyItem.active) {
 				this.modelLander[landerProperty] = this.modelLander[landerProperty] + keyItem.change;
 			}
